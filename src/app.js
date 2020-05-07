@@ -9,10 +9,16 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { SeedScene } from 'scenes';
+// YS - May 6 edit
+import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
+import MUSIC from './You Gotta Be.mp3';
+//import { Music } from 'music';
+import { CamListener } from 'camListener';
 
 // Initialize core ThreeJS components
+const camera = new CamListener();
 const scene = new SeedScene();
-const camera = new PerspectiveCamera();
+//const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
