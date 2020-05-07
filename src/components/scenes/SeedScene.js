@@ -6,6 +6,7 @@ import { BasicLights } from 'lights';
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
 import MUSIC from './You Gotta Be.mp3';
 //import { Music } from 'music';
+import { Vector3 } from 'three';
 
 class SeedScene extends Scene {
   constructor(audioListener) {
@@ -15,15 +16,17 @@ class SeedScene extends Scene {
     // Init state
     this.state = {
       gui: new Dat.GUI(), // Create GUI for scene
-      rotationSpeed: 1,
+      rotationSpeed: 0,
       updateList: [],
       music: null,
       play: this.play.bind(this),
+      pause: this.pause.bind(this),
       analyser: null,
     };
 
     // Set background to a nice color
-    this.background = new Color(0x7ec0ee);
+    //this.background = new Color(0x7ec0ee);
+    this.background = new Color(0x000000);
 
     // Add meshes to scene
     const land = new Land();
@@ -32,20 +35,29 @@ class SeedScene extends Scene {
     this.add(land, flower, lights);
 
     // add an obstacle
-    const obstacle = new Obstacle(this);
-    this.add(obstacle);
+    /*let position = new Vector3(0, 5, 0);
+    const obstacle = new Obstacle(this, position);
+    this.add(obstacle);*/
+
+    // add obstacles
+    for (let y = -5; y < 5; y+=2) {
+      for (let z = -5; z < 5; z+=2) {
+        let position1 = new Vector3(-5, y, z);
+        let obstacle1 = new Obstacle(this, position1);
+        let position2 = new Vector3(5, y, z);
+        let obstacle2 = new Obstacle(this, position2);
+        //obstacle1.setPosition(position);
+        this.add(obstacle1, obstacle2);
+      }
+    }
 
     // Populate GUI
     this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
     this.state.gui.add(this.state, 'play');
-
-    // YS - May 6 edit: global audio!
+    this.state.gui.add(this.state, 'pause');
 
     // create a global audio source
     var sound = new Audio(audioListener);
-
-    /*const audioLoader = new Music(this);
-    this.add(audioLoader);*/
 
     // load a sound and set it as the Audio object's buffer
     var audioLoader = new AudioLoader();
@@ -58,7 +70,7 @@ class SeedScene extends Scene {
     });
     this.state.music = sound;
     // YS 5/6 Analyze frequency
-    var analyser = new AudioAnalyser(this.state.music, 32 );
+    var analyser = new AudioAnalyser(this.state.music, 64 );
     this.state.analyser = analyser;
   }
 
@@ -68,6 +80,10 @@ class SeedScene extends Scene {
 
   play() {
     this.state.music.play();
+  }
+
+  pause() {
+    this.state.music.pause();
   }
 
   update(timeStamp) {
@@ -82,8 +98,10 @@ class SeedScene extends Scene {
     //console.log(data[10]);
 
     // Call update for each object in the updateList
+    let i = 0;
     for (const obj of updateList) {
-      obj.update(timeStamp, data[10]);
+      obj.update(timeStamp, data[i]);
+      i++;
     }
   }
 }

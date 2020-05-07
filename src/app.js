@@ -24,7 +24,7 @@ const scene = new SeedScene(camera.getAudioListener());
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(6, 3, -10);
+camera.position.set(6, -15, -50);
 camera.lookAt(new Vector3(0, 0, 0));
 
 // YS - May 6 edit: global audio!
