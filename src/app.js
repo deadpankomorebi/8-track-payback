@@ -12,19 +12,16 @@ import { RectangularTubeScene } from 'scenes';
 import { Headphones } from 'objects';
 
 // YS - May 6 edit
-import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
-import MUSIC from './You Gotta Be.mp3';
-//import { Music } from 'music';
 import { CamListener } from 'camListener';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
-const scene = new RectangularTubeScene();
+const scene = new RectangularTubeScene(camera.getAudioListener());
 //const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(6, 3, -10);
+camera.position.set(0, 2, -10);
 camera.lookAt(new Vector3(0, 0, 0));
 
 // Set up renderer, canvas, and minor CSS adjustments
@@ -89,4 +86,3 @@ else {
 }
 }
     window.addEventListener("keydown", handleKeypressEvents);
-
