@@ -27,32 +27,6 @@ const renderer = new WebGLRenderer({ antialias: true });
 camera.position.set(6, -15, -50);
 camera.lookAt(new Vector3(0, 0, 0));
 
-// YS - May 6 edit: global audio!
-// create an AudioListener and add it to the camera
-/*var listener = new AudioListener();
-camera.add( listener );*/
-
-// create a global audio source
-/*var sound = new Audio(camera.getAudioListener());
-
-// load a sound and set it as the Audio object's buffer
-var audioLoader = new AudioLoader();
-audioLoader.load( MUSIC, function( buffer ) {
-sound.setBuffer( buffer );
-sound.setLoop( true );
-sound.setVolume( 0.5 );
-// uncomment this line to play automatically
-//sound.play();
-});
-
-// create an AudioAnalyser, passing in the sound and desired fftSize
-var analyser = new AudioAnalyser( sound, 32 );
-
-// get the average frequency of the sound
-var data = analyser.getFrequencyData();*/
-
-// made boxes that correspond to
-
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
 const canvas = renderer.domElement;
