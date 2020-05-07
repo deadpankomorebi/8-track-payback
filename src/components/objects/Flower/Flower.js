@@ -53,7 +53,7 @@ class Flower extends Group {
         jumpUp.start();
     }
 
-    update(timeStamp) {
+    update(timeStamp, freqData) {
         if (this.state.bob) {
             // Bob back and forth
             this.rotation.z = 0.05 * Math.sin(timeStamp / 300);
@@ -63,6 +63,9 @@ class Flower extends Group {
             this.state.twirl -= Math.PI / 8;
             this.rotation.y += Math.PI / 8;
         }
+        //let scaleFactor = freqData / 128;
+        //debugger;
+        //this.position.y = freqData;
 
         // Advance tween animations, if any exist
         TWEEN.update();
