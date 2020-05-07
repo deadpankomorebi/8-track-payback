@@ -8,7 +8,9 @@
  */
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { SeedScene } from 'scenes';
+import { RectangularTubeScene } from 'scenes';
+import { Headphones } from 'objects';
+
 // YS - May 6 edit
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
 import MUSIC from './You Gotta Be.mp3';
@@ -17,7 +19,7 @@ import { CamListener } from 'camListener';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
-const scene = new SeedScene();
+const scene = new RectangularTubeScene();
 //const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
@@ -59,3 +61,32 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
+
+// Handle keypress events
+function handleKeypressEvents(event) {
+	if (event.target.tagName === "INPUT") { return; }
+
+  // The vectors to which each key code in this handler maps. (Change these if you like)
+  const keyMap = {
+    ArrowUp: new Vector3(0, 1, 0),
+    ArrowDown: new Vector3(0, -1, 0),
+    ArrowLeft: new Vector3(1, 0, 0),
+    ArrowRight: new Vector3(-1, 0, 0),
+    w: new Vector3(0, 1, 0),
+    a: new Vector3(1, 0, 0),
+    s: new Vector3(0, -1, 0),
+    d: new Vector3(-1, 0, 0),
+	}
+
+	const scale = .25; // the magnitude of the movement produced by this keypress
+
+// Check which key was pressed. If it wasn't a triggering key, do nothing.
+  if (!keyMap.hasOwnProperty(event.key)) { return; }
+else {
+  let offset = keyMap[event.key];
+  let index = scene.children.findIndex(obj => obj.name === "headphones");
+  scene.children[index].position.add(offset.multiplyScalar(scale));
+}
+}
+    window.addEventListener("keydown", handleKeypressEvents);
+
