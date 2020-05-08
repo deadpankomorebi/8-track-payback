@@ -19,6 +19,21 @@ class Headphones extends Group {
         	this.add(gltf.scene);
         }); 
     }
+
+    checkTubeCollisions() {
+        if (this.position.y > 2.5) {
+            this.position.y = 2.5;
+        }
+        if (this.position.y < -3.5) {
+            this.position.y = -3.5;
+        }
+        if (this.position.x > 3.0) {
+            this.position.x = 3.0;
+        }
+        if (this.position.x < -3.0) {
+            this.position.x = -3.0;
+        }
+    }
 }
 
 

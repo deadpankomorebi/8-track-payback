@@ -47,9 +47,11 @@ module.exports = {
             objects$: path.resolve(__dirname, 'src/components/objects'),
             scenes$: path.resolve(__dirname, 'src/components/scenes'),
             camListener$: path.resolve(__dirname, 'src/components/camListener'),
+            menus$: path.resolve(__dirname, 'src/components/menus'),
         },
     },
     plugins: [
         new HtmlWebpackPlugin({ title: pkg.title, favicon: 'src/favicon.ico' }),
+        //new HtmlWebpackPlugin({ title: pkg.title, favicon: 'src/favicon.ico', template: 'src/index.html' }),
     ],
 };

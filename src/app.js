@@ -9,10 +9,12 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RectangularTubeScene } from 'scenes';
-import { Headphones } from 'objects';
 
 // YS - May 6 edit
 import { CamListener } from 'camListener';
+
+// ME - May 8 edit
+import { StartMenu } from 'menus';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
@@ -31,6 +33,8 @@ canvas.style.display = 'block'; // Removes padding below canvas
 document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
+new StartMenu(); // ME - May 8 edit
+
 
 // Set up controls
 const controls = new OrbitControls(camera, canvas);
@@ -83,6 +87,7 @@ else {
   let offset = keyMap[event.key];
   let index = scene.children.findIndex(obj => obj.name === "headphones");
   scene.children[index].position.add(offset.multiplyScalar(scale));
+  scene.children[index].checkTubeCollisions();
 }
 }
     window.addEventListener("keydown", handleKeypressEvents);

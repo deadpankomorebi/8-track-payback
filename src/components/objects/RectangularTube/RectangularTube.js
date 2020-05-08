@@ -1,5 +1,4 @@
 import { Group, TubeGeometry, LineCurve3, Vector3, MeshNormalMaterial, Mesh, DoubleSide } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 class RectangularTube extends Group {
     constructor() {
