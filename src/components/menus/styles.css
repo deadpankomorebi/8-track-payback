@@ -5,6 +5,7 @@
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 10vh;
+	color: rgb(200, 255, 200);
 }
 
 .author {
@@ -14,6 +15,7 @@
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 5vh;
+	color: rgb(225, 221, 6);
 }
 
 .instructions {
@@ -24,6 +26,7 @@
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 7vh;
+	color: rgb(187, 255, 74);
 }
 
 .button {
@@ -34,6 +37,7 @@
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 4vh;
+	color: #1a81cb;
 }
 
 body {
