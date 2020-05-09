@@ -1,5 +1,5 @@
 import { Group } from 'three';
-import { BoxBufferGeometry, MeshPhongMaterial, Mesh, Vector3 } from 'three';
+import { BoxBufferGeometry, MeshPhongMaterial, Mesh, Vector3, Box3 } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 
 class Obstacle extends Group {
@@ -14,10 +14,12 @@ class Obstacle extends Group {
       material: null,
       cube: null,
       position: position,
+      parent: parent,
     };
 
     // Create a box
     var geometry = new BoxBufferGeometry( 1, 1, 1 );
+    geometry.computeBoundingBox();
     this.state.geometry = geometry;
     var material = new MeshPhongMaterial( {color: 0x0d9880} );
     this.state.material = material;
@@ -25,8 +27,6 @@ class Obstacle extends Group {
     cube.position.set(position.x, position.y, position.z);
     //debugger;
     this.state.cube = cube;
-
-    //this.state.position = position;
 
     this.add(this.state.cube);
 
@@ -36,7 +36,6 @@ class Obstacle extends Group {
     // Populate GUI
     //this.state.gui.add(this.state, 'bob');
     //this.state.gui.add(this.state, 'spin');
-    //debugger;
   }
 
   setPosition(position) {
@@ -44,7 +43,16 @@ class Obstacle extends Group {
     this.state.position = position;
   }
 
-  update(timeStamp, freqData) {
+// YS May 9: Test if the player hit the bounding box of the obstacle
+  checkCollision(player) {
+    let box = new Box3(this.state.geometry.boundingBox.min.add(this.state.position),
+                       this.state.geometry.boundingBox.max.add(this.state.position));
+    if (box.containsPoint(player.state.position))
+    return true;
+    else return false;
+  }
+
+  update(timeStamp, freqData, player) {
     // dispose of old mesh
     this.state.cube.geometry.dispose();
     this.state.cube.material.dispose();
@@ -52,22 +60,18 @@ class Obstacle extends Group {
 
     // create new mesh
     let geometry = new BoxBufferGeometry( freqData / 23, 1, 1 );
+    geometry.computeBoundingBox();
     this.state.geometry = geometry;
     let cube = new Mesh( geometry, this.state.material);
     let position = this.state.position;
-    //debugger;
-    //cube.position.set(position);
-    //debugger;
     this.state.cube = cube;
-    //debugger;
-    /*let position = this.state.position;
-    this.state.cube.position.set(position);*/
-    //this.state.cube.position.set(new Vector3(0,2,0));
     this.add(this.state.cube);
     this.state.cube.position.set(position.x, position.y, position.z);
-//debugger;
     // Advance tween animations, if any exist
     TWEEN.update();
+
+    // Check if avatar collide into the obstacle
+    if(this.checkCollision(player)) this.state.parent.state.loseEnd = true;
   }
 }
 

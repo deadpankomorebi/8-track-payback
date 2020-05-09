@@ -21,6 +21,8 @@ class RectangularTubeScene extends Scene {
             play: this.play.bind(this),
             pause: this.pause.bind(this),
             analyser: null,
+            player: null,
+            loseEnd: false,
         };
 
         // Set background to a nice color
@@ -32,11 +34,13 @@ class RectangularTubeScene extends Scene {
         const lights = new BasicLights();
         const rectangularTube = new RectangularTube();
         const headphones = new Headphones();
+        // YS May 9 edit
+        this.state.player = headphones;
         this.add(land, lights, rectangularTube, headphones);
 
         // Add some obstacles
         for (let y = -2; y < 6; y+=2) {
-          for (let z = 2; z < 20; z+=2) {
+          for (let z = -2; z < 10; z+=2) {
             let position1 = new Vector3(-4.1, y, z);
             let obstacle1 = new Obstacle(this, position1);
             let position2 = new Vector3(4.1, y, z);
@@ -64,7 +68,7 @@ class RectangularTubeScene extends Scene {
           //ound.play();
         });
         this.state.music = sound;
-        // YS 5/6 Analyze frequency
+        // Analyze frequency
         var analyser = new AudioAnalyser(this.state.music, 64 );
         this.state.analyser = analyser;
     }
@@ -91,8 +95,11 @@ class RectangularTubeScene extends Scene {
         // Call update for each object in the updateList
         let i = 0;
         for (const obj of updateList) {
-            obj.update(timeStamp, data[i]);
+            obj.update(timeStamp, data[i], this.state.player);
             i++;
+        }
+        if (this.state.loseEnd) {
+          this.pause();
         }
     }
 }

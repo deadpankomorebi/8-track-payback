@@ -17,7 +17,11 @@ class Headphones extends Group {
         	gltf.scene.position.set(0, 1, 0);
         	gltf.scene.scale.multiplyScalar(.1);
         	this.add(gltf.scene);
-        }); 
+        });
+
+				this.state = {
+					position: this.position,
+				}
     }
 
     checkTubeCollisions() {
@@ -34,6 +38,10 @@ class Headphones extends Group {
             this.position.x = -3.0;
         }
     }
+
+		// YS 5/9
+		//checkObstacleCollisions() {
+		//}
 }
 
 
