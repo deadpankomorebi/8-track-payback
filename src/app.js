@@ -33,7 +33,8 @@ canvas.style.display = 'block'; // Removes padding below canvas
 document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
-new StartMenu(); // ME - May 8 edit
+
+const startMenu = new StartMenu(); // ME - May 8 edit
 
 
 // Set up controls

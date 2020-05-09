@@ -43,14 +43,16 @@ document.body.appendChild(instructions);
 const button = document.createElement("button");
 button.id = "btn";
 button.onclick = function startPayback() {
-	var newLength = document.body.children.length;
 
 	for (let i = 0; i < length; i++) {
 		document.body.children[i].style.opacity = 1;
 	}
-	for (let j = length; j < newLength; j++) {
-		document.body.children[j].style.opacity = 0;
-	}
+	
+  // remove start menu children
+  document.body.removeChild(title);
+  document.body.removeChild(names);
+  document.body.removeChild(instructions);
+  document.body.removeChild(button);
 } 
 button.className = "button";
 button.type = "button";
