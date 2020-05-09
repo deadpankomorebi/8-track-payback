@@ -16,6 +16,10 @@ import { CamListener } from 'camListener';
 // ME - May 8 edit
 import { StartMenu } from 'menus';
 
+// ME May 9 edit
+// overlays lose menu over game screen *need to connect to lose conditions*
+import { LoseMenu } from 'menus';
+
 // Initialize core ThreeJS components
 const camera = new CamListener();
 const scene = new RectangularTubeScene(camera.getAudioListener());

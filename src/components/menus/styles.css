@@ -40,6 +40,37 @@
 	color: #1a81cb;
 }
 
+.wisecrack {
+	position: absolute;
+	top: 165px;
+	width: 100%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 7vh;
+	color: rgb(200, 255, 200);
+}
+
+.oh {
+	position: absolute;
+	top: 30px;
+	width: 100%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 12vh;
+	color: rgb(225, 221, 6);
+}
+
+.jack {
+	position: absolute;
+	top: 165px;
+	padding-top: 100px;
+	width: 100%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 6vh;
+	color: rgb(187, 255, 74);
+}
+
 body {
 	background-color: #7ec0ee;
 }
