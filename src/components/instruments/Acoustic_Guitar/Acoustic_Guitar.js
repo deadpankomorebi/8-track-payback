@@ -3,14 +3,24 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './Acoustic_Guitar.gltf';
 
-var ftlg;
-
 class AcousticGuitar extends Group {
     constructor() {
         // Call parent Group() constructor
         super();
 
         const loader = new GLTFLoader();
+
+        const man = loader.manager;
+        var esto = this;
+         function done() {
+            console.log("tar");
+            var box = new Box3().setFromObject(esto);
+            console.log(box);
+            esto.userData.boundingBox = box;
+        }
+
+        man.onLoad = done; 
+
 
         this.name = 'acousticGuitar';
 
@@ -28,19 +38,21 @@ class AcousticGuitar extends Group {
     	const approach = new TWEEN.Tween(this.position)	
     		.to({ z: this.position.z - 60}, 4000);
 
+
+
     		approach.start();
+
+            approach.onComplete( () => {
+this.parent.remove(this);
+});
+
+            
 }
 
 update(timeStamp) {
 	TWEEN.update();
 }
 
-checkBoxIntersection(box) {
-
-    		this.bounding = new Box3().setFromObject(ftlg);
-
-    		return this.bounding.intersectsBox(box);
-} 
 
 }
 

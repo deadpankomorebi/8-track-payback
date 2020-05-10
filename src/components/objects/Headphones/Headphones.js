@@ -12,9 +12,14 @@ class Headphones extends Group {
         const loader = new GLTFLoader();
 
         const man = loader.manager;
+        var esto = this;
         function done() {
-            console.log("lpk");
+            console.log("yoo");
+            var box = new Box3().setFromObject(esto);
+            console.log(box);
+            esto.userData.boundingBox = box; 
         }
+
         man.onLoad = done;
 
         this.name = 'headphones';
@@ -24,10 +29,9 @@ class Headphones extends Group {
         	gltf.scene.position.set(0, 1, 0);
         	gltf.scene.scale.multiplyScalar(.1);
         	this.add(gltf.scene);
+            console.log("phones");
 
         });
-
-        this.userData = "testHat";
     }
 
     checkTubeCollisions() {
@@ -45,12 +49,6 @@ class Headphones extends Group {
         }
     }
 
-    createBoundingBox() {
-        var boks = new Box3().setFromObject(this);
-            return boks;
-
-
-    }
 }
 
 

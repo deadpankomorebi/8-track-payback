@@ -94,17 +94,24 @@ else {
   scene.children[index].position.add(offset.multiplyScalar(scale));
   scene.children[index].checkTubeCollisions();
 }
-}
-    window.addEventListener("keydown", handleKeypressEvents);
+} 
 
+let pindex = scene.children.findIndex(obj => obj.name === "headphones");
+
+    window.addEventListener("keydown", handleKeypressEvents); 
+
+
+// testing object approach
 let index = scene.children.findIndex(obj => obj.name === "acousticGuitar");
 let hindex = scene.children.findIndex(obj => obj.name === "headphones");
 
 window.setTimeout( () => {
-let hbox = scene.children[hindex].createBoundingBox();
+let hbox = scene.children[index].userData.boundingBox;
 let test = 1;
 scene.children[index].moveForward();
-console.log(test); }, 5000);
+console.log(test);
+console.log(hbox); }, 6000); 
+
 
   
   /*if (scene.children[index].checkBoxIntersection(hbox) == true) {
