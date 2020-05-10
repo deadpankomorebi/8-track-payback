@@ -100,9 +100,13 @@ else {
 let index = scene.children.findIndex(obj => obj.name === "acousticGuitar");
 let hindex = scene.children.findIndex(obj => obj.name === "headphones");
 
-//let hbox = scene.children[hindex].createBoundingBox();
+window.setTimeout( () => {
+let hbox = scene.children[hindex].createBoundingBox();
+let test = 1;
+scene.children[index].moveForward();
+console.log(test); }, 5000);
 
-  scene.children[index].moveForward();
+  
   /*if (scene.children[index].checkBoxIntersection(hbox) == true) {
     new loseMenu();
   } */

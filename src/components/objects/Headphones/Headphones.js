@@ -11,6 +11,12 @@ class Headphones extends Group {
 
         const loader = new GLTFLoader();
 
+        const man = loader.manager;
+        function done() {
+            console.log("lpk");
+        }
+        man.onLoad = done;
+
         this.name = 'headphones';
 
         loader.load(MODEL, (gltf) => {
@@ -40,7 +46,7 @@ class Headphones extends Group {
     }
 
     createBoundingBox() {
-        var boks = new Box3().setFromObject(ftlg);
+        var boks = new Box3().setFromObject(this);
             return boks;
 
 
