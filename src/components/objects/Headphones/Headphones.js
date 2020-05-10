@@ -1,4 +1,4 @@
-import { Group } from 'three';
+import { Group, Vector3, Box3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 // https://poly.google.com/view/frvTEfwm9Yg
@@ -14,10 +14,14 @@ class Headphones extends Group {
         this.name = 'headphones';
 
         loader.load(MODEL, (gltf) => {
+
         	gltf.scene.position.set(0, 1, 0);
         	gltf.scene.scale.multiplyScalar(.1);
         	this.add(gltf.scene);
-        }); 
+
+        });
+
+        this.userData = "testHat";
     }
 
     checkTubeCollisions() {
@@ -33,6 +37,13 @@ class Headphones extends Group {
         if (this.position.x < -3.0) {
             this.position.x = -3.0;
         }
+    }
+
+    createBoundingBox() {
+        var boks = new Box3().setFromObject(ftlg);
+            return boks;
+
+
     }
 }
 

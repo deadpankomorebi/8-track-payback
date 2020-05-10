@@ -38,7 +38,7 @@ document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
 
-const startMenu = new StartMenu(); // ME - May 8 edit
+//const startMenu = new StartMenu(); // ME - May 8 edit
 
 
 // Set up controls
@@ -96,3 +96,15 @@ else {
 }
 }
     window.addEventListener("keydown", handleKeypressEvents);
+
+let index = scene.children.findIndex(obj => obj.name === "acousticGuitar");
+let hindex = scene.children.findIndex(obj => obj.name === "headphones");
+
+//let hbox = scene.children[hindex].createBoundingBox();
+
+  scene.children[index].moveForward();
+  /*if (scene.children[index].checkBoxIntersection(hbox) == true) {
+    new loseMenu();
+  } */
+  
+

@@ -1,6 +1,7 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, RectangularTube, Headphones, Obstacle } from 'objects';
+import { Flower, Land, RectangularTube, Headphones, Obstacle, Boombox } from 'objects';
+import { AcousticGuitar } from 'instruments';
 import { BasicLights } from 'lights';
 // YS - May 7 edit
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
@@ -32,7 +33,9 @@ class RectangularTubeScene extends Scene {
         const lights = new BasicLights();
         const rectangularTube = new RectangularTube();
         const headphones = new Headphones();
-        this.add(land, lights, rectangularTube, headphones);
+        const boombox = new Boombox();
+        const acoustic = new AcousticGuitar();
+        this.add(lights, rectangularTube, headphones, boombox, acoustic);
 
         // Add some obstacles
         for (let y = -2; y < 6; y+=2) {
