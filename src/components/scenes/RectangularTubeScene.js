@@ -129,7 +129,7 @@ class RectangularTubeScene extends Scene {
 
             instrument.moveForward(() => {
                 console.log("loom move forward");
-                this.position.z = 0;
+                //this.position.z = 0;
                 instrument.moving = false;
                 
             });

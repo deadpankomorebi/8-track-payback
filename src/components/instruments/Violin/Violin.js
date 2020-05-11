@@ -44,7 +44,7 @@ class Violin extends Group {
 
 approach.onComplete( () => {
         this.visible = false;
-        //this.position.z = currentZ;
+        this.position.z = currentZ;
         console.log("Move Forward is complete");
         console.log(this);
         callback();

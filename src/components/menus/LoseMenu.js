@@ -46,7 +46,7 @@ button.onclick = function startPayback() {
 var newLength = document.body.children.length;
 console.log(length);
 console.log(newLength);
-	for (let i = 0; i < newLength; i++) {
+	for (let i = 0; i < length; i++) {
 		document.body.children[i].style.opacity = 1;
 	}
 
