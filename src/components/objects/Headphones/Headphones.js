@@ -5,7 +5,7 @@ import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './Headphones.gltf';
 
 class Headphones extends Group {
-	constructor() {
+	constructor(parent) {
         // Call parent Group() constructor
         super();
 
@@ -16,8 +16,7 @@ class Headphones extends Group {
         var phones = this;
 
         loader.load(MODEL, (gltf) => {
-
-        	gltf.scene.position.set(0, 1, 0);
+        	gltf.scene.position.set(0, 0, 0);
         	gltf.scene.scale.multiplyScalar(.1);
 
         	this.add(gltf.scene);
@@ -29,6 +28,12 @@ class Headphones extends Group {
         });
 
         window.addEventListener("keydown", this.handleKeypressEvents.bind(phones));
+
+
+		/*	this.state = {
+				position: this.position,
+				speed: parent.state.currentSpeed,
+			}; */
     }
 
     checkTubeCollisions() {
@@ -39,11 +44,11 @@ class Headphones extends Group {
         var minY = this.boundingBox.min.y;
         var diff;
 
-        if (this.position.y > 2.5) {
-            this.position.y = 2.5;
+        if (this.position.y > 3.5) {
+            this.position.y = 3.5;
         }
-        if (this.position.y < -3.5) {
-            this.position.y = -3.5;
+        if (this.position.y < -1.4) {
+            this.position.y = -1.4;
         }
         if (this.position.x > 3.0) {
             this.position.x = 3.0
@@ -79,7 +84,7 @@ else {
   this.position.add(offset.multiplyScalar(scale));
   this.checkTubeCollisions();
 }
-} 
+}
 
     update(timeStamp) {
         this.boundingBox = new Box3().setFromObject(this);

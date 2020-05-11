@@ -1,19 +1,15 @@
 /**
- * app.js
- *
- * This is the first file loaded. It sets up the Renderer,
- * Scene and Camera. It also starts the render loop and
- * handles window resizes.
- *
- */
+* app.js
+*
+* This is the first file loaded. It sets up the Renderer,
+* Scene and Camera. It also starts the render loop and
+* handles window resizes.
+*
+*/
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RectangularTubeScene } from 'scenes';
-
-// YS - May 6 edit
 import { CamListener } from 'camListener';
-
-// ME - May 8 edit
 import { StartMenu } from 'menus';
 
 // ME May 9 edit
@@ -22,13 +18,14 @@ import { LoseMenu } from 'menus';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
-const scene = new RectangularTubeScene(camera.getAudioListener());
-//const camera = new PerspectiveCamera();
+const scene = new RectangularTubeScene(camera.getAudioListener(), camera);
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(0, 2, -10);
-camera.lookAt(new Vector3(0, 0, 0));
+camera.position.set(0, 1, -10);
+camera.lookAt(new Vector3(0, 0, 100));
+let camDirection = new Vector3();
+camera.getWorldDirection(camDirection);
 
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -40,7 +37,6 @@ document.body.appendChild(canvas);
 
 //const startMenu = new StartMenu(); // ME - May 8 edit
 
-
 // Set up controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -51,19 +47,27 @@ controls.update();
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-    controls.update();
-    renderer.render(scene, camera);
-    scene.update && scene.update(timeStamp);
-    window.requestAnimationFrame(onAnimationFrameHandler);
+  controls.update();
+  renderer.render(scene, camera);
+  scene.update && scene.update(timeStamp);
+  //camera.translateX(2);
+  //camera.position.add(camDirection.clone().multiplyScalar(2));
+  //debugger;
+  // YS May 9: when lose, go back to start menu
+  if (scene.state.loseEnd) {
+    scene.dispose();
+    const startMenu = new StartMenu();
+  }
+  window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 // Resize Handler
 const windowResizeHandler = () => {
-    const { innerHeight, innerWidth } = window;
-    renderer.setSize(innerWidth, innerHeight);
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
+  const { innerHeight, innerWidth } = window;
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);

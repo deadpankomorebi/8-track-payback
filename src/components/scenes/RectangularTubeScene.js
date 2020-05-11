@@ -10,7 +10,7 @@ import MUSIC from './You Gotta Be.mp3';
 import { Vector3 } from 'three';
 
 class RectangularTubeScene extends Scene {
-    constructor(audioListener) {
+    constructor(audioListener, camera) {
         // Call parent Scene() constructor
         super();
 
@@ -23,50 +23,59 @@ class RectangularTubeScene extends Scene {
             play: this.play.bind(this),
             pause: this.pause.bind(this),
             analyser: null,
+            player: null,
+            loseEnd: false,
+            currentSpeed: 0.1,
+            camera: camera,
+            //test: 20,
+            tube1: null,
+            tube2: null,
+            obstacles: [],
+            //obstacles2: [],
+            //group1: false,
+            //life: 3,
         };
 
         // Set background to a nice color
-        this.background = new Color(0x7ec0ee);
+        this.background = new Color(0x000000);
 
         // Add meshes to scene
         const land = new Land();
-        const flower = new Flower(this);
         const lights = new BasicLights();
-        const rectangularTube = new RectangularTube();
-        const boombox = new Boombox();
 
-        this.add(lights, rectangularTube, boombox);
+                const boombox = new Boombox();
 
-// add player to scene
-          this.player = new Headphones();
-          this.add(this.player);
+              //  this.add(lights, rectangularTube, boombox);
 
-          // add instruments to scene
-        const acoustic = new AcousticGuitar();
-        const piano = new Piano();
-        const violin = new Violin();
-        
-        this.add(acoustic, piano, violin);
+        // add player to scene
+                  //this.player = new Headphones();
+                  //this.add(this.player);
 
-        var instruments = [acoustic, piano, violin];
-        this.instruments = instruments;
-        for (let i = 0; i < instruments.length; i++) {
-            instruments[i].position.x = this.generateRandom(instruments[i].minX, instruments[i].maxX);
-            instruments[i].position.y = this.generateRandom(instruments[i].minY, instruments[i].maxY);
-            instruments[i].visible = false;
-        }
+                  // add instruments to scene
+                const acoustic = new AcousticGuitar();
+                const piano = new Piano();
+                const violin = new Violin();
 
-        // Add some obstacles
-        for (let y = -2; y < 6; y+=2) {
-          for (let z = 2; z < 20; z+=2) {
-            let position1 = new Vector3(-4.1, y, z);
-            let obstacle1 = new Obstacle(this, position1);
-            let position2 = new Vector3(4.1, y, z);
-            let obstacle2 = new Obstacle(this, position2);
-            //obstacle1.setPosition(position);
-            this.add(obstacle1, obstacle2);
-      }
-    }
+                this.add(acoustic, piano, violin);
+
+                var instruments = [acoustic, piano, violin];
+                this.instruments = instruments;
+                for (let i = 0; i < instruments.length; i++) {
+                    instruments[i].position.x = this.generateRandom(instruments[i].minX, instruments[i].maxX);
+                    instruments[i].position.y = this.generateRandom(instruments[i].minY, instruments[i].maxY);
+                    instruments[i].visible = false;
+                }
+
+        //const rectangularTube = new RectangularTube(this);
+        //this.state.tube = rectangularTube;
+        const headphones = new Headphones(this);
+
+        // YS May 9 edit
+        this.state.player = headphones;
+        //this.add(land, lights, rectangularTube, headphones);
+        this.add(lights, headphones, boombox);
+        this.addTube();
+        this.addObstacles();
 
         // Populate GUI
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
@@ -83,10 +92,10 @@ class RectangularTubeScene extends Scene {
           sound.setLoop( true );
           sound.setVolume( 0.5 );
           // uncomment this line to play automatically
-          //ound.play();
+          //sound.play();
         });
         this.state.music = sound;
-        // YS 5/6 Analyze frequency
+        // Analyze frequency
         var analyser = new AudioAnalyser(this.state.music, 64 );
         this.state.analyser = analyser;
 
@@ -113,7 +122,7 @@ class RectangularTubeScene extends Scene {
     checkInstrumentCollision(instrument) {
         if (instrument.boundingBox) {
         const iBound = instrument.boundingBox;
-        const hBound = this.player.boundingBox;
+        const hBound = this.state.player.boundingBox;
 
         if (iBound.intersectsBox(hBound) === true) {
             new LoseMenu();
@@ -131,7 +140,7 @@ class RectangularTubeScene extends Scene {
                 console.log("loom move forward");
                 //this.position.z = 0;
                 instrument.moving = false;
-                
+
             });
             instrument.moving = true;
 
@@ -181,6 +190,29 @@ class RectangularTubeScene extends Scene {
       this.state.music.pause();
     }
 
+    addTube() {
+      let depth = this.state.player.position.z;
+      const rectangularTube1 = new RectangularTube(this, depth);
+      this.state.tube1 = rectangularTube1;
+      const rectangularTube2 = new RectangularTube(this, depth + 100);
+      this.state.tube2 = rectangularTube2;
+      this.add(rectangularTube1, rectangularTube2);
+    }
+
+    addObstacles() {
+      for (let y = 0; y < 4; y+=2) {
+        for (let z = 0; z < 20; z+=2) {
+          let position1 = new Vector3(-4.1, y, z);
+          let obstacle1 = new Obstacle(this, position1);
+          let position2 = new Vector3(4.1, y, z);
+          let obstacle2 = new Obstacle(this, position2);
+          this.state.obstacles.push(obstacle1);
+          this.state.obstacles.push(obstacle2);
+          this.add(obstacle1, obstacle2);
+        }
+      }
+    }
+
     update(timeStamp) {
         const { rotationSpeed, updateList } = this.state;
         this.rotation.y = (rotationSpeed * timeStamp) / 10000;
@@ -191,7 +223,8 @@ class RectangularTubeScene extends Scene {
         // Call update for each object in the updateList
         let i = 0;
         for (const obj of updateList) {
-            obj.update(timeStamp, data[i]);
+          //debugger;
+            obj.update(timeStamp, data[i], this.state.player);
             i++;
         }
 
@@ -199,9 +232,14 @@ class RectangularTubeScene extends Scene {
 
      for (let i = 0; i < this.instruments.length; i++) {
         this.checkInstrumentCollision(this.instruments[i]);
-     }
+     } 
+
+     if (this.state.loseEnd) {
+       this.pause();
+     
 
     }
+  }
 }
 
 export default RectangularTubeScene;
