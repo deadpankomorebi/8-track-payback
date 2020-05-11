@@ -28,6 +28,10 @@ class Violin extends Group {
         vln.parent.addToUpdateList(vln);
         });
 
+        this.minX = -2.7;
+        this.maxX = 3.7;
+        this.minY = -2.2;
+        this.maxY = 4.0;
 
     }
 

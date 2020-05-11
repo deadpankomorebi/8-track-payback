@@ -68,21 +68,3 @@ const windowResizeHandler = () => {
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
 
-/*// testing object approach
-let index = scene.children.findIndex(obj => obj.name === "acousticGuitar");
-let hindex = scene.children.findIndex(obj => obj.name === "headphones");
-
-window.setTimeout( () => {
-let hbox = scene.children[index].boundingBox;
-let test = 1;
-scene.children[index].moveForward();
-console.log(test);
-console.log(hbox); }, 6000); 
-
-*/
-  
-  /*if (scene.children[index].checkBoxIntersection(hbox) == true) {
-    new loseMenu();
-  } */
-  
-

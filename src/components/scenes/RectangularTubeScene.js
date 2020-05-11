@@ -33,16 +33,27 @@ class RectangularTubeScene extends Scene {
         const flower = new Flower(this);
         const lights = new BasicLights();
         const rectangularTube = new RectangularTube();
-        this.player = new Headphones();
         const boombox = new Boombox();
+
+        this.add(lights, rectangularTube, boombox);
+
+// add player to scene
+          this.player = new Headphones();
+          this.add(this.player);
+
+          // add instruments to scene
         const acoustic = new AcousticGuitar();
-        //acoustic.position.y = this.generateRandom(-2, 2);
-        //acoustic.position.x = this.generateRandom(-3, 3);
         const piano = new Piano();
         const violin = new Violin();
-        this.add(lights, rectangularTube, boombox);
-        this.add(this.player);
+        
         this.add(acoustic, piano, violin);
+
+        var instruments = [acoustic, piano, violin];
+        this.instruments = instruments;
+        for (let i = 0; i < instruments.length; i++) {
+            instruments[i].position.x = this.generateRandom(instruments[i].minX, instruments[i].maxX);
+            instruments[i].position.y = this.generateRandom(instruments[i].minY, instruments[i].maxY);
+        }
 
         // Add some obstacles
         for (let y = -2; y < 6; y+=2) {
@@ -83,23 +94,34 @@ class RectangularTubeScene extends Scene {
         return (Math.random() * (max-min)) + min;
     }
 
+    randomIndex(length) { // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        return Math.floor(Math.random() * Math.floor(length));
+    }
+
+    chooseInstrument(instrumentsArray) {
+        var index = this.randomIndex(instrumentsArray.length);
+        return instrumentsArray[index];
+    }
+
     checkInstrumentCollision(instrument) {
         const iBound = instrument.boundingBox;
         const hBound = this.player.boundingBox;
 
-        if (iBound.intersectsBox(hBound) == true) {
+        if (iBound.intersectsBox(hBound) === true) {
             new LoseMenu();
         }
     }
 
-    loom(instrument) {
+    loom(instrument, callback) {
         if (instrument.boundingBox) { //ensure bounding box has been created
             this.checkInstrumentCollision(instrument); // check if player intersects instrument
             if (instrument.moving == false) { //ensure instrument is not already moving
-            instrument.moveForward();
+            instrument.moveForward(() => {
+                console.log("moveForward done");
+            });
             instrument.moving = true;
         }
-            
+            callback();
         }
     }
 
@@ -130,7 +152,10 @@ class RectangularTubeScene extends Scene {
         }
 
         if (this.children[4].name == "acousticGuitar") {
-        this.loom(this.children[4]); } 
+        this.loom(this.children[4], () => {
+            this.children[4].moving = false;
+            console.log("actuallyDone?"); }
+        ); } 
 
     }
 }

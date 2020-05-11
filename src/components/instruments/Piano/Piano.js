@@ -22,12 +22,18 @@ class Piano extends Group {
 
             this.add(gltf.scene);
             pno.boundingBox = new Box3().setFromObject(gltf.scene);
+            pno.moving = false;
             console.log("pano");
 
             // Add self to parent's update list
         pno.parent.addToUpdateList(pno);
 
         });
+
+        this.minX = -2.7;
+        this.maxX = 2.6;
+        this.minY = -2.5;
+        this.maxY = 2.9;
 
     }
 

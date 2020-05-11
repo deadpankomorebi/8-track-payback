@@ -29,21 +29,27 @@ class AcousticGuitar extends Group {
         guitar.parent.addToUpdateList(guitar);
         });
 
-        
+        this.minX = -3.0;
+        this.maxX = 3.0;
+        this.minY = -1.9;
+        this.maxY = 2.8
     }
 
-    moveForward() {
+    moveForward(callback) {
 
     	const approach = new TWEEN.Tween(this.position)	
     		.to({ z: this.position.z - 60}, 4000);
 
       approach.onComplete( () => {
-        //this.position.z = 50;
+        this.position.z = 50;
         //this.visible = false;
         console.log("approach");
         console.log(this);
         var center = this.boundingBox.getCenter(new Vector3);
+        var size = this.boundingBox.getSize(new Vector3);
         console.log(center);
+        console.log(size);
+        callback();
 
     });
 
