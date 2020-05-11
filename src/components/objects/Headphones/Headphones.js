@@ -5,7 +5,7 @@ import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './Headphones.gltf';
 
 class Headphones extends Group {
-	constructor() {
+	constructor(parent) {
         // Call parent Group() constructor
         super();
 
@@ -21,7 +21,10 @@ class Headphones extends Group {
 
 				this.state = {
 					position: this.position,
-				}
+					speed: parent.state.currentSpeed,
+				};
+
+				//parent.addToUpdateList(this);
     }
 
     checkTubeCollisions() {
@@ -40,8 +43,9 @@ class Headphones extends Group {
     }
 
 		// YS 5/9
-		//checkObstacleCollisions() {
-		//}
+		update() {
+			//this.state.position.z += this.state.speed;
+		}
 }
 
 

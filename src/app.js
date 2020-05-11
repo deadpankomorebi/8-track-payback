@@ -9,21 +9,19 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RectangularTubeScene } from 'scenes';
-
-// YS - May 6 edit
 import { CamListener } from 'camListener';
-
-// ME - May 8 edit
 import { StartMenu } from 'menus';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
-const scene = new RectangularTubeScene(camera.getAudioListener());
+const scene = new RectangularTubeScene(camera.getAudioListener(), camera);
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(0, 2, -10);
-camera.lookAt(new Vector3(0, 0, 0));
+camera.position.set(0, 3, -10);
+camera.lookAt(new Vector3(0, 0, 100));
+let camDirection = new Vector3();
+camera.getWorldDirection(camDirection);
 
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -33,7 +31,7 @@ document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
 
-const startMenu = new StartMenu(); // ME - May 8 edit
+//const startMenu = new StartMenu(); // ME - May 8 edit
 
 // Set up controls
 const controls = new OrbitControls(camera, canvas);
@@ -48,6 +46,9 @@ const onAnimationFrameHandler = (timeStamp) => {
   controls.update();
   renderer.render(scene, camera);
   scene.update && scene.update(timeStamp);
+  //camera.translateX(2);
+  //camera.position.add(camDirection.clone().multiplyScalar(2));
+  //debugger;
   // YS May 9: when lose, go back to start menu
   if (scene.state.loseEnd) {
     scene.dispose();
