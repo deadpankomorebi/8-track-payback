@@ -16,7 +16,7 @@ class AcousticGuitar extends Group {
 
         loader.load(MODEL, (gltf) => {
 
-        	gltf.scene.position.z = 50;
+            gltf.scene.position.z = 50;
             gltf.scene.rotation.y = Math.PI / 2;
         	gltf.scene.scale.multiplyScalar(.1);
 
@@ -29,10 +29,10 @@ class AcousticGuitar extends Group {
         guitar.parent.addToUpdateList(guitar);
         });
 
-        this.minX = -3.0;
-        this.maxX = 3.0;
-        this.minY = -1.9;
-        this.maxY = 2.8
+        this.minX = -1.0;
+        this.maxX = 1.0;
+        this.minY = -1.0;
+        this.maxY = 2.7;
     }
 
     moveForward(callback) {

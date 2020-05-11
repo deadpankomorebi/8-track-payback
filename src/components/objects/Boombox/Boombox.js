@@ -15,9 +15,9 @@ class Boombox extends Group {
 
         loader.load(MODEL, (gltf) => {
 
-        	gltf.scene.position.set(0, -4.65, 0);
+        	gltf.scene.position.set(0, -2.5, 0);
             gltf.scene.rotation.y = Math.PI;
-        	gltf.scene.scale.multiplyScalar(.4);
+        	gltf.scene.scale.multiplyScalar(.2);
         	this.add(gltf.scene);
         });
     }

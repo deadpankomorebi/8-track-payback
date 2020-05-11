@@ -17,9 +17,9 @@ class Violin extends Group {
 
         loader.load(MODEL, (gltf) => {
 
-        	gltf.scene.position.z = 50;
+            gltf.scene.position.z = 50;
             gltf.scene.rotation.set(-Math.PI / 2, Math.PI, 0);
-            gltf.scene.scale.multiplyScalar(.000001);
+            gltf.scene.scale.multiplyScalar(.000002);
             this.add(gltf.scene);
             vln.boundingBox = new Box3().setFromObject(gltf.scene);
             vln.moving = false;
@@ -29,10 +29,10 @@ class Violin extends Group {
         vln.parent.addToUpdateList(vln);
         });
 
-        this.minX = -2.7;
-        this.maxX = 3.7;
-        this.minY = -2.2;
-        this.maxY = 4.0;
+        this.minX = 0;
+        this.maxX = 1.5;
+        this.minY = -1.0;
+        this.maxY = 3.5;
 
     }
 

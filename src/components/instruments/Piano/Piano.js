@@ -16,7 +16,7 @@ class Piano extends Group {
 
         loader.load(MODEL, (gltf) => {
 
-        	gltf.scene.position.z = 50;
+            gltf.scene.position.z = 50;
             gltf.scene.rotation.y = Math.PI / 2;
         	gltf.scene.scale.multiplyScalar(.15);
 
@@ -30,9 +30,9 @@ class Piano extends Group {
 
         });
 
-        this.minX = -2.7;
-        this.maxX = 2.6;
-        this.minY = -2.5;
+        this.minX = -1.0;
+        this.maxX = 1.0;
+        this.minY = -1.5;
         this.maxY = 2.9;
 
     }
