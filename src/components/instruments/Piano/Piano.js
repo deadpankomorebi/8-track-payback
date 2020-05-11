@@ -1,54 +1,45 @@
 import { Group, Box3 , Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
-import MODEL from './Acoustic_Guitar.gltf';
+import MODEL from './Piano.gltf';
 
-class AcousticGuitar extends Group {
+class Piano extends Group {
     constructor() {
         // Call parent Group() constructor
         super();
 
         const loader = new GLTFLoader();
 
-        this.name = 'acousticGuitar';
+        this.name = 'piano';
 
-        var guitar = this;
+        var pno = this;
 
         loader.load(MODEL, (gltf) => {
 
         	gltf.scene.position.z = 50;
             gltf.scene.rotation.y = Math.PI / 2;
-        	gltf.scene.scale.multiplyScalar(.1);
+        	gltf.scene.scale.multiplyScalar(.15);
 
             this.add(gltf.scene);
-            guitar.boundingBox = new Box3().setFromObject(gltf.scene);
-            guitar.moving = false;
-            console.log("tar");
+            pno.boundingBox = new Box3().setFromObject(gltf.scene);
+            console.log("pano");
 
             // Add self to parent's update list
-        guitar.parent.addToUpdateList(guitar);
+        pno.parent.addToUpdateList(pno);
+
         });
 
-        
     }
 
     moveForward() {
-
     	const approach = new TWEEN.Tween(this.position)	
     		.to({ z: this.position.z - 60}, 4000);
 
-      approach.onComplete( () => {
-        //this.position.z = 50;
-        //this.visible = false;
-        console.log("approach");
-        console.log(this);
-        var center = this.boundingBox.getCenter(new Vector3);
-        console.log(center);
-
+approach.onComplete( () => {
+        this.position.z = 50;
     });
 
-    		approach.start();
-
+    		approach.start(); 
             
 }
 
@@ -62,4 +53,4 @@ update(timeStamp) {
 
 
 
-export default AcousticGuitar;
+export default Piano;

@@ -68,51 +68,18 @@ const windowResizeHandler = () => {
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
 
-// Handle keypress events
-function handleKeypressEvents(event) {
-	if (event.target.tagName === "INPUT") { return; }
-
-  // The vectors to which each key code in this handler maps. (Change these if you like)
-  const keyMap = {
-    ArrowUp: new Vector3(0, 1, 0),
-    ArrowDown: new Vector3(0, -1, 0),
-    ArrowLeft: new Vector3(1, 0, 0),
-    ArrowRight: new Vector3(-1, 0, 0),
-    w: new Vector3(0, 1, 0),
-    a: new Vector3(1, 0, 0),
-    s: new Vector3(0, -1, 0),
-    d: new Vector3(-1, 0, 0),
-	}
-
-	const scale = .25; // the magnitude of the movement produced by this keypress
-
-// Check which key was pressed. If it wasn't a triggering key, do nothing.
-  if (!keyMap.hasOwnProperty(event.key)) { return; }
-else {
-  let offset = keyMap[event.key];
-  let index = scene.children.findIndex(obj => obj.name === "headphones");
-  scene.children[index].position.add(offset.multiplyScalar(scale));
-  scene.children[index].checkTubeCollisions();
-}
-} 
-
-let pindex = scene.children.findIndex(obj => obj.name === "headphones");
-
-    window.addEventListener("keydown", handleKeypressEvents); 
-
-
-// testing object approach
+/*// testing object approach
 let index = scene.children.findIndex(obj => obj.name === "acousticGuitar");
 let hindex = scene.children.findIndex(obj => obj.name === "headphones");
 
 window.setTimeout( () => {
-let hbox = scene.children[index].userData.boundingBox;
+let hbox = scene.children[index].boundingBox;
 let test = 1;
 scene.children[index].moveForward();
 console.log(test);
 console.log(hbox); }, 6000); 
 
-
+*/
   
   /*if (scene.children[index].checkBoxIntersection(hbox) == true) {
     new loseMenu();

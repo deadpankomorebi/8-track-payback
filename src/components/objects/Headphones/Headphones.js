@@ -11,30 +11,34 @@ class Headphones extends Group {
 
         const loader = new GLTFLoader();
 
-        const man = loader.manager;
-        var esto = this;
-        function done() {
-            console.log("yoo");
-            var box = new Box3().setFromObject(esto);
-            console.log(box);
-            esto.userData.boundingBox = box; 
-        }
-
-        man.onLoad = done;
-
         this.name = 'headphones';
+
+        var phones = this;
 
         loader.load(MODEL, (gltf) => {
 
         	gltf.scene.position.set(0, 1, 0);
         	gltf.scene.scale.multiplyScalar(.1);
+
         	this.add(gltf.scene);
+            phones.boundingBox = new Box3().setFromObject(gltf.scene);
             console.log("phones");
 
+            phones.parent.addToUpdateList(phones);
+
         });
+
+        window.addEventListener("keydown", this.handleKeypressEvents.bind(phones));
     }
 
     checkTubeCollisions() {
+        if (this.boundingBox) {
+        var maxX = this.boundingBox.max.x;
+        var maxY = this.boundingBox.max.y;
+        var minX = this.boundingBox.min.x;
+        var minY = this.boundingBox.min.y;
+        var diff;
+
         if (this.position.y > 2.5) {
             this.position.y = 2.5;
         }
@@ -42,11 +46,44 @@ class Headphones extends Group {
             this.position.y = -3.5;
         }
         if (this.position.x > 3.0) {
-            this.position.x = 3.0;
+            this.position.x = 3.0
         }
         if (this.position.x < -3.0) {
             this.position.x = -3.0;
         }
+    }
+    }
+
+    // Handle keypress events
+handleKeypressEvents(event) {
+    if (event.target.tagName === "INPUT") { return; }
+    console.log(this);
+
+  // The vectors to which each key code in this handler maps. (Change these if you like)
+  const keyMap = {
+    ArrowUp: new Vector3(0, 1, 0),
+    ArrowDown: new Vector3(0, -1, 0),
+    ArrowLeft: new Vector3(1, 0, 0),
+    ArrowRight: new Vector3(-1, 0, 0),
+    w: new Vector3(0, 1, 0),
+    a: new Vector3(1, 0, 0),
+    s: new Vector3(0, -1, 0),
+    d: new Vector3(-1, 0, 0),
+    }
+
+    const scale = .25; // the magnitude of the movement produced by this keypress
+
+// Check which key was pressed. If it wasn't a triggering key, do nothing.
+  if (!keyMap.hasOwnProperty(event.key)) { return; }
+else {
+  let offset = keyMap[event.key];
+  this.position.add(offset.multiplyScalar(scale));
+  this.checkTubeCollisions();
+}
+} 
+
+    update(timeStamp) {
+        this.boundingBox = new Box3().setFromObject(this);
     }
 
 }

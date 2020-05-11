@@ -1,7 +1,8 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, RectangularTube, Headphones, Obstacle, Boombox } from 'objects';
-import { AcousticGuitar } from 'instruments';
+import { AcousticGuitar, Piano, Violin } from 'instruments';
+import { LoseMenu } from 'menus';
 import { BasicLights } from 'lights';
 // YS - May 7 edit
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
@@ -32,10 +33,16 @@ class RectangularTubeScene extends Scene {
         const flower = new Flower(this);
         const lights = new BasicLights();
         const rectangularTube = new RectangularTube();
-        const headphones = new Headphones();
+        this.player = new Headphones();
         const boombox = new Boombox();
         const acoustic = new AcousticGuitar();
-        this.add(lights, rectangularTube, headphones, boombox, acoustic);
+        //acoustic.position.y = this.generateRandom(-2, 2);
+        //acoustic.position.x = this.generateRandom(-3, 3);
+        const piano = new Piano();
+        const violin = new Violin();
+        this.add(lights, rectangularTube, boombox);
+        this.add(this.player);
+        this.add(acoustic, piano, violin);
 
         // Add some obstacles
         for (let y = -2; y < 6; y+=2) {
@@ -72,6 +79,30 @@ class RectangularTubeScene extends Scene {
         this.state.analyser = analyser;
     }
 
+    generateRandom(min, max) {
+        return (Math.random() * (max-min)) + min;
+    }
+
+    checkInstrumentCollision(instrument) {
+        const iBound = instrument.boundingBox;
+        const hBound = this.player.boundingBox;
+
+        if (iBound.intersectsBox(hBound) == true) {
+            new LoseMenu();
+        }
+    }
+
+    loom(instrument) {
+        if (instrument.boundingBox) { //ensure bounding box has been created
+            this.checkInstrumentCollision(instrument); // check if player intersects instrument
+            if (instrument.moving == false) { //ensure instrument is not already moving
+            instrument.moveForward();
+            instrument.moving = true;
+        }
+            
+        }
+    }
+
     addToUpdateList(object) {
         this.state.updateList.push(object);
     }
@@ -97,6 +128,10 @@ class RectangularTubeScene extends Scene {
             obj.update(timeStamp, data[i]);
             i++;
         }
+
+        if (this.children[4].name == "acousticGuitar") {
+        this.loom(this.children[4]); } 
+
     }
 }
 
