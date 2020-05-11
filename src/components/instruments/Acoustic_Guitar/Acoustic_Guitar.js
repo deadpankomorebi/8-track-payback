@@ -35,18 +35,20 @@ class AcousticGuitar extends Group {
         this.maxY = 2.8
     }
 
-    moveForward() {
+    moveForward(callback) {
+        var currentZ = this.position.z;
 
     	const approach = new TWEEN.Tween(this.position)	
     		.to({ z: this.position.z - 60}, 4000);
 
       approach.onComplete( () => {
-        this.position.z = 50;
-        //var parent = this.parent;
-        //parent.resetPosition(this);
-        //this.visible = false;
+        this.visible = false;
+        this.position.z = currentZ;
+        console.log(currentZ);
+ 
         console.log("Move Forward is complete");
         console.log(this);
+        callback();
     });
 
     		approach.start();
@@ -57,6 +59,7 @@ class AcousticGuitar extends Group {
 update(timeStamp) {
 	TWEEN.update();
     this.boundingBox = new Box3().setFromObject(this);
+    //this.boundingBox.applyMatrix4(this.matrix);
 }
 
 

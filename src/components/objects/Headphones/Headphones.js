@@ -57,7 +57,6 @@ class Headphones extends Group {
     // Handle keypress events
 handleKeypressEvents(event) {
     if (event.target.tagName === "INPUT") { return; }
-    console.log(this);
 
   // The vectors to which each key code in this handler maps. (Change these if you like)
   const keyMap = {
