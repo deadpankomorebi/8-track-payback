@@ -35,22 +35,18 @@ class AcousticGuitar extends Group {
         this.maxY = 2.8
     }
 
-    moveForward(callback) {
+    moveForward() {
 
     	const approach = new TWEEN.Tween(this.position)	
     		.to({ z: this.position.z - 60}, 4000);
 
       approach.onComplete( () => {
         this.position.z = 50;
+        //var parent = this.parent;
+        //parent.resetPosition(this);
         //this.visible = false;
-        console.log("approach");
+        console.log("Move Forward is complete");
         console.log(this);
-        var center = this.boundingBox.getCenter(new Vector3);
-        var size = this.boundingBox.getSize(new Vector3);
-        console.log(center);
-        console.log(size);
-        callback();
-
     });
 
     		approach.start();

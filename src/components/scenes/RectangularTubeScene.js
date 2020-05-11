@@ -98,9 +98,18 @@ class RectangularTubeScene extends Scene {
         return Math.floor(Math.random() * Math.floor(length));
     }
 
+    resetPosition(instrument) {
+        console.log("starting reset position");
+        instrument.position.x = this.generateRandom(instrument.minX, instrument.maxX);
+        instrument.position.y = this.generateRandom(instrument.minY, instrument.maxY);
+        console.log("ending reset position");
+    }
+
     chooseInstrument(instrumentsArray) {
+        console.log("starting choose Instrument");
         var index = this.randomIndex(instrumentsArray.length);
         return instrumentsArray[index];
+        console.log("ending choose INstrument");
     }
 
     checkInstrumentCollision(instrument) {
@@ -112,17 +121,46 @@ class RectangularTubeScene extends Scene {
         }
     }
 
-    loom(instrument, callback) {
+    loom(instrument) {
         if (instrument.boundingBox) { //ensure bounding box has been created
             this.checkInstrumentCollision(instrument); // check if player intersects instrument
             if (instrument.moving == false) { //ensure instrument is not already moving
-            instrument.moveForward(() => {
-                console.log("moveForward done");
-            });
+                console.log("starting loom");
+            instrument.moveForward();
             instrument.moving = true;
+            console.log("last function call in loom");
         }
-            callback();
         }
+    }
+
+    allStopped() {
+        var stoppedCount = 0;
+        var instruments = this.instruments;
+        var total = instruments.length;
+        if (instruments[total-1].boundingBox) { //ensure all bounding boxes have been created
+        for (let i = 0; i < total; i++) {
+            if (instruments[i].moving === false) {
+                stoppedCount++;
+            }
+        }
+
+        // if all instruments are stopped, execute
+        if (stoppedCount === total) {
+            console.log("all confirmed to be stopped");
+            // choose instrument to move forward
+            var instrument = this.chooseInstrument(instruments);
+
+            // randomize position of chosen instrument
+            this.resetPosition(instrument);
+
+            //bring instrument forward
+            this.loom(instrument);
+
+            console.log("last call in all Stopped");
+        }
+    }
+
+        return instrument;
     }
 
     addToUpdateList(object) {
@@ -151,11 +189,7 @@ class RectangularTubeScene extends Scene {
             i++;
         }
 
-        if (this.children[4].name == "acousticGuitar") {
-        this.loom(this.children[4], () => {
-            this.children[4].moving = false;
-            console.log("actuallyDone?"); }
-        ); } 
+        var yod = this.allStopped();
 
     }
 }

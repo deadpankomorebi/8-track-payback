@@ -22,6 +22,7 @@ class Violin extends Group {
             gltf.scene.scale.multiplyScalar(.000001);
             this.add(gltf.scene);
             vln.boundingBox = new Box3().setFromObject(gltf.scene);
+            vln.moving = false;
             console.log("vla");
 
             // Add self to parent's update list
