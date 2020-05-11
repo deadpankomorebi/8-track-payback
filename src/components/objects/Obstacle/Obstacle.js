@@ -58,6 +58,7 @@ class Obstacle extends Group {
     // Populate GUI
     //this.state.gui.add(this.state, 'bob');
     //this.state.gui.add(this.state, 'spin');
+    console.log(this.state.cube.position);
   }
 
 // YS May 9: Test if the player hit the bounding box of the obstacle
@@ -74,11 +75,13 @@ class Obstacle extends Group {
     if (this.state.cube.position.x < 0) {
       end = freqData / 60 + this.state.cube.position.x;
       //if (freqData > 100) debugger;
-      if (end > player.position.x + 0.1) {console.log(end);console.log(player.position.x);return true;}
+      if (end > player.position.x - 0.35) {console.log(end);console.log(player.position.x);
+        return true;}
     } else {
       end = - freqData / 60 + this.state.cube.position.x;
       //if (freqData > 100) debugger;
-      if (end < player.position.x - 0.1) {console.log(end);console.log(player.position.x);return true;}
+      if (end < player.position.x + 0.35) {console.log(end);console.log(player.position.x);
+        return true;}
     }
     return false;
     //let length = freqData / 60
@@ -109,7 +112,7 @@ class Obstacle extends Group {
     // use morphTargets
     let target = {};
     target[0] = freqData / 256;
-    const durationInMs = 500;
+    const durationInMs = 100;
     new TWEEN.Tween(this.state.cube.morphTargetInfluences)
       .to(target, durationInMs)
       .start();

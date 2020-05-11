@@ -23,15 +23,15 @@ class RectangularTubeScene extends Scene {
             analyser: null,
             player: null,
             loseEnd: false,
-            currentSpeed: 0.2,
+            currentSpeed: 0.1,
             camera: camera,
-            test: 20,
+            //test: 20,
             tube1: null,
             tube2: null,
-            obstacles1: [],
-            obstacles2: [],
-            group1: false,
-            life: 3,
+            obstacles: [],
+            //obstacles2: [],
+            //group1: false,
+            //life: 3,
         };
 
         // Set background to a nice color
@@ -39,7 +39,6 @@ class RectangularTubeScene extends Scene {
 
         // Add meshes to scene
         const land = new Land();
-        //const flower = new Flower(this);
         const lights = new BasicLights();
         //const rectangularTube = new RectangularTube(this);
         //this.state.tube = rectangularTube;
@@ -66,7 +65,7 @@ class RectangularTubeScene extends Scene {
           sound.setLoop( true );
           sound.setVolume( 0.5 );
           // uncomment this line to play automatically
-          //ound.play();
+          //sound.play();
         });
         this.state.music = sound;
         // Analyze frequency
@@ -97,26 +96,13 @@ class RectangularTubeScene extends Scene {
 
     addObstacles() {
       for (let y = 0; y < 4; y+=2) {
-        for (let z = 0; z < 10; z+=2) {
+        for (let z = 0; z < 20; z+=2) {
           let position1 = new Vector3(-4.1, y, z);
           let obstacle1 = new Obstacle(this, position1);
           let position2 = new Vector3(4.1, y, z);
           let obstacle2 = new Obstacle(this, position2);
-          //obstacle1.setPosition(position);
-          this.state.obstacles1.push(obstacle1);
-          this.state.obstacles1.push(obstacle2);
-          this.add(obstacle1, obstacle2);
-        }
-      }
-      for (let y = 0; y < 4; y+=2) {
-        for (let z = 10; z < 20; z+=2) {
-          let position1 = new Vector3(-4.1, y, z);
-          let obstacle1 = new Obstacle(this, position1);
-          let position2 = new Vector3(4.1, y, z);
-          let obstacle2 = new Obstacle(this, position2);
-          //obstacle1.setPosition(position);
-          this.state.obstacles2.push(obstacle1);
-          this.state.obstacles2.push(obstacle2);
+          this.state.obstacles.push(obstacle1);
+          this.state.obstacles.push(obstacle2);
           this.add(obstacle1, obstacle2);
         }
       }
@@ -137,23 +123,9 @@ class RectangularTubeScene extends Scene {
             i++;
         }
         if (this.state.loseEnd) {
-          //this.state.life--;
           this.pause();
         }
 
-        /*if (this.state.player.position.z >= this.state.test) {
-          this.state.test = 10;
-          if (!this.state.group1) {
-            this.state.obstacles1.forEach(obstacle => obstacle.position.z += 20);
-            this.state.group1 = true;
-          } else {
-            this.state.obstacles2.forEach(obstacle => obstacle.position.z += 20);
-            this.state.group1 = false;
-          }
-          //this.state.obstacles.forEach(obstacle => obstacle.position.z += 20);
-          //this.addObstacles();
-        }*/
-        //this.state.test -= this.state.currentSpeed;//debugging only*/
     }
 }
 

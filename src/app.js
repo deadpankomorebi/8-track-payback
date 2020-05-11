@@ -92,6 +92,7 @@ function handleKeypressEvents(event) {
     let offset = keyMap[event.key];
     let index = scene.children.findIndex(obj => obj.name === "headphones");
     scene.children[index].position.add(offset.multiplyScalar(scale));
+    console.log(scene.children[index].position);
     scene.children[index].checkTubeCollisions();
   }
 }

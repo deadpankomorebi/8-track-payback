@@ -14,7 +14,7 @@ class Headphones extends Group {
         this.name = 'headphones';
 
         loader.load(MODEL, (gltf) => {
-        	gltf.scene.position.set(0, 1, 0);
+        	gltf.scene.position.set(0, 0, 0);
         	gltf.scene.scale.multiplyScalar(.1);
         	this.add(gltf.scene);
         });
