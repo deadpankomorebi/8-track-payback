@@ -56,7 +56,7 @@ const onAnimationFrameHandler = (timeStamp) => {
   // YS May 9: when lose, go back to start menu
   if (scene.state.loseEnd) {
     scene.dispose();
-    const startMenu = new StartMenu();
+    const loseMenu = new LoseMenu();
   }
   window.requestAnimationFrame(onAnimationFrameHandler);
 };
