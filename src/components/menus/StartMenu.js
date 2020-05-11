@@ -1,5 +1,5 @@
 class StartMenu {
-	constructor() {
+	constructor(scene) {
 
 		this.name = 'startMenu';
 
@@ -53,6 +53,15 @@ class StartMenu {
 			document.body.removeChild(names);
 			document.body.removeChild(instructions);
 			document.body.removeChild(button);
+
+			// begin game after short delay
+			scene.state.startBegin = false;
+
+			setTimeout(() => {
+				scene.state.gamePlay = true;
+			}, 1000); // wait 1000 miliseconds before beginning game
+			
+
 		}
 		button.className = "button";
 		button.type = "button";

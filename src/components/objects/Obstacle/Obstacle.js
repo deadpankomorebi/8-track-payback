@@ -58,7 +58,7 @@ class Obstacle extends Group {
     // Populate GUI
     //this.state.gui.add(this.state, 'bob');
     //this.state.gui.add(this.state, 'spin');
-    console.log(this.state.cube.position);
+    //console.log(this.state.cube.position);
   }
 
 // YS May 9: Test if the player hit the bounding box of the obstacle

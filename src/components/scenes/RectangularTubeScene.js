@@ -24,6 +24,8 @@ class RectangularTubeScene extends Scene {
             pause: this.pause.bind(this),
             analyser: null,
             player: null,
+            startBegin: true,
+            gamePlay: false,
             loseEnd: false,
             currentSpeed: 0.1,
             camera: camera,
@@ -125,7 +127,8 @@ class RectangularTubeScene extends Scene {
         const hBound = this.state.player.boundingBox;
 
         if (iBound.intersectsBox(hBound) === true) {
-            new LoseMenu();
+            //new LoseMenu();
+            this.state.loseEnd = true;
         }
     }
     }
@@ -137,8 +140,6 @@ class RectangularTubeScene extends Scene {
             if (instrument.moving == false) { //ensure instrument is not already moving
 
             instrument.moveForward(() => {
-                console.log("loom move forward");
-                //this.position.z = 0;
                 instrument.moving = false;
 
             });
@@ -232,11 +233,11 @@ class RectangularTubeScene extends Scene {
 
      for (let i = 0; i < this.instruments.length; i++) {
         this.checkInstrumentCollision(this.instruments[i]);
-     } 
+     }
 
      if (this.state.loseEnd) {
        this.pause();
-     
+
 
     }
   }

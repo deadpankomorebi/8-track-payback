@@ -35,8 +35,6 @@ document.body.style.margin = 0; // Removes margin around page
 document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
 
-//const startMenu = new StartMenu(); // ME - May 8 edit
-
 // Set up controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
@@ -45,19 +43,29 @@ controls.minDistance = 4;
 controls.maxDistance = 16;
 controls.update();
 
+  // ME May 11; start state
+startGame(scene);
+
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
+
+
   controls.update();
   renderer.render(scene, camera);
+
+  if (scene.state.gamePlay) {
   scene.update && scene.update(timeStamp);
   //camera.translateX(2);
   //camera.position.add(camDirection.clone().multiplyScalar(2));
   //debugger;
   // YS May 9: when lose, go back to start menu
   if (scene.state.loseEnd) {
-    scene.dispose();
-    const loseMenu = new LoseMenu();
+    //scene.dispose();
+    if (!scene.state.loseMenuCreated) {
+    const loseMenu = new LoseMenu(scene);
   }
+  }
+}
   window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
@@ -71,3 +79,11 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
+
+
+// ME - May 11 edit
+function startGame(scene) {
+  if (scene.state.startBegin) {
+  const startMenu = new StartMenu(scene); // ME - May 8 edit
+  }
+}

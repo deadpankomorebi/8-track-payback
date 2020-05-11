@@ -1,7 +1,9 @@
 class LoseMenu {
-	constructor() {
+	constructor(scene) {
 
 		this.name = 'loseMenu';
+
+    scene.state.loseMenuCreated = true;
 
 // link to stylesheet
 const link = document.createElement("link");
@@ -43,9 +45,7 @@ document.body.appendChild(jack);
 const button = document.createElement("button");
 button.id = "btn";
 button.onclick = function startPayback() {
-var newLength = document.body.children.length;
-console.log(length);
-console.log(newLength);
+
 	for (let i = 0; i < length; i++) {
 		document.body.children[i].style.opacity = 1;
 	}
@@ -55,9 +55,14 @@ console.log(newLength);
   document.body.removeChild(oh);
   document.body.removeChild(jack);
   document.body.removeChild(button);
+
+  scene.state.loseEnd = false;
+  scene.state.loseMenuCreated = false;
+
 }
 button.className = "button";
 button.type = "button";
+button.id = 'returnToGame';
 button.innerText = "CLICK TO GET BACK TO THE ATTACK OF THE 8-TRACK";
 document.body.appendChild(button);
 
