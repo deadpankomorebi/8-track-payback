@@ -1,4 +1,4 @@
-import { Group, Box3 , Vector3 } from 'three';
+import { Group, Box3 , Vector3, Box3Helper } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './Violin.gltf';
@@ -44,7 +44,7 @@ class Violin extends Group {
 
 approach.onComplete( () => {
         this.visible = false;
-        this.position.z = currentZ;
+        //this.position.z = currentZ;
         console.log("Move Forward is complete");
         console.log(this);
         callback();
@@ -58,6 +58,8 @@ approach.onComplete( () => {
   update(timeStamp) {
    TWEEN.update();
    this.boundingBox = new Box3().setFromObject(this);
+       //var helper = new Box3Helper( this.boundingBox);
+    //this.parent.add(helper);
 }
 
 

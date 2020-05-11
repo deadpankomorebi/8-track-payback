@@ -43,8 +43,10 @@ document.body.appendChild(jack);
 const button = document.createElement("button");
 button.id = "btn";
 button.onclick = function startPayback() {
-
-	for (let i = 0; i < length; i++) {
+var newLength = document.body.children.length;
+console.log(length);
+console.log(newLength);
+	for (let i = 0; i < newLength; i++) {
 		document.body.children[i].style.opacity = 1;
 	}
 

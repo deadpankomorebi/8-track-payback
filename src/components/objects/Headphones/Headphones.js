@@ -1,4 +1,4 @@
-import { Group, Vector3, Box3 } from 'three';
+import { Group, Vector3, Box3, Box3Helper } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 // https://poly.google.com/view/frvTEfwm9Yg
@@ -83,6 +83,8 @@ else {
 
     update(timeStamp) {
         this.boundingBox = new Box3().setFromObject(this);
+       // var helper = new Box3Helper( this.boundingBox);
+    //this.parent.add(helper);
     }
 
 }

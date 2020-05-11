@@ -1,4 +1,4 @@
-import { Group, Box3 , Vector3 } from 'three';
+import { Group, Box3 , Vector3, Box3Helper } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './Acoustic_Guitar.gltf';
@@ -43,8 +43,7 @@ class AcousticGuitar extends Group {
 
       approach.onComplete( () => {
         this.visible = false;
-        this.position.z = currentZ;
-        console.log(currentZ);
+        //this.position.z = currentZ;
  
         console.log("Move Forward is complete");
         console.log(this);
@@ -59,7 +58,8 @@ class AcousticGuitar extends Group {
 update(timeStamp) {
 	TWEEN.update();
     this.boundingBox = new Box3().setFromObject(this);
-    //this.boundingBox.applyMatrix4(this.matrix);
+    //var helper = new Box3Helper( this.boundingBox);
+    //this.parent.add(helper);
 }
 
 

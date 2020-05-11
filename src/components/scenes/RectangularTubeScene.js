@@ -111,12 +111,14 @@ class RectangularTubeScene extends Scene {
     }
 
     checkInstrumentCollision(instrument) {
+        if (instrument.boundingBox) {
         const iBound = instrument.boundingBox;
         const hBound = this.player.boundingBox;
 
         if (iBound.intersectsBox(hBound) === true) {
             new LoseMenu();
         }
+    }
     }
 
     loom(instrument) {
@@ -127,7 +129,7 @@ class RectangularTubeScene extends Scene {
 
             instrument.moveForward(() => {
                 console.log("loom move forward");
-
+                this.position.z = 0;
                 instrument.moving = false;
                 
             });
@@ -193,7 +195,11 @@ class RectangularTubeScene extends Scene {
             i++;
         }
 
-       this.allStopped();
+     this.allStopped();
+
+     for (let i = 0; i < this.instruments.length; i++) {
+        this.checkInstrumentCollision(this.instruments[i]);
+     }
 
     }
 }
