@@ -58,7 +58,6 @@ const onAnimationFrameHandler = (timeStamp) => {
   //camera.translateX(2);
   //camera.position.add(camDirection.clone().multiplyScalar(2));
   //debugger;
-  // YS May 9: when lose, go back to start menu
   if (scene.state.loseEnd) {
     //scene.dispose();
     if (!scene.state.loseMenuCreated) {

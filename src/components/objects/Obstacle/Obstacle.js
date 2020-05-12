@@ -70,11 +70,13 @@ class Obstacle extends Group {
     }
     return false;
     //let length = freqData / 60
-    /*this.state.geometry.computeBoundingBox();
-    let box = this.state.geometry.boundingBox;
+    //this.state.geometry.computeBoundingBox();
+    //let box = this.state.geometry.boundingBox;
+    /*let box = new Box3().setFromObject(this.state.geometry);
+    console.log(box);
     //debugger;
-    box.min.add(this.state.cube.position);
-    box.max.add(this.state.cube.position);
+    //box.min.add(this.state.cube.position);
+    //box.max.add(this.state.cube.position);
     //box.min.x += this.state.cube.position.x;
     //box.max.x += this.state.cube.position.x;
     //debugger;

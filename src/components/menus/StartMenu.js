@@ -1,3 +1,5 @@
+import { SelectMenu } from 'menus';
+
 class StartMenu {
 	constructor(scene) {
 
@@ -55,12 +57,13 @@ class StartMenu {
 			document.body.removeChild(button);
 
 			// begin game after short delay
-			scene.state.startBegin = false;
+			/*scene.state.startBegin = false;
 
 			setTimeout(() => {
 				scene.state.gamePlay = true;
-			}, 1000); // wait 1000 miliseconds before beginning game
-			
+			}, 1000); // wait 1000 miliseconds before beginning game*/
+			const selectMenu = new SelectMenu(scene);
+
 
 		}
 		button.className = "button";

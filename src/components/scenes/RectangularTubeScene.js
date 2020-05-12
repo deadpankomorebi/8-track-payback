@@ -4,9 +4,10 @@ import { Flower, Land, RectangularTube, Headphones, Obstacle, Boombox } from 'ob
 import { AcousticGuitar, Piano, Violin } from 'instruments';
 import { LoseMenu } from 'menus';
 import { BasicLights } from 'lights';
-// YS - May 7 edit
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
-import MUSIC from './You Gotta Be.mp3';
+import MUSIC1 from './You Gotta Be.mp3';
+import MUSIC2 from './Kirby.mp3';
+import MUSIC3 from './Offenbach.mp3';
 import { Vector3 } from 'three';
 
 class RectangularTubeScene extends Scene {
@@ -39,6 +40,8 @@ class RectangularTubeScene extends Scene {
             lifeText: null,
             instrumentCollision: false,
             obstacleCollision: false,
+            musicSelect: 0,
+            listener: audioListener,
         };
 
         // Set background to a nice color
@@ -83,24 +86,29 @@ class RectangularTubeScene extends Scene {
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
         this.state.gui.add(this.state, 'play');
         this.state.gui.add(this.state, 'pause');
-        //this.state.gui.add(this.state, 'life');
-
+//if (this.state.musicSelect === 3) {
         // create a global audio source
-        var sound = new Audio(audioListener);
-
+        /*var sound = new Audio(audioListener);
+        //if (this.state.musicSelect === 3) debugger;
         // load a sound and set it as the Audio object's buffer
         var audioLoader = new AudioLoader();
-        audioLoader.load( MUSIC, function( buffer ) {
+
+        this.audioLoader = audioLoader;
+        //console.log(this.state.musicSelect);
+        //if (this.state.musicSelect === 3) {
+        audioLoader.load( MUSIC3, function( buffer ) {
           sound.setBuffer( buffer );
           sound.setLoop( true );
           sound.setVolume( 0.5 );
           // uncomment this line to play automatically
           //sound.play();
         });
+      //}
         this.state.music = sound;
         // Analyze frequency
         var analyser = new AudioAnalyser(this.state.music, 64 );
-        this.state.analyser = analyser;
+        this.state.analyser = analyser;*/
+      this.addMusic(3);
 
         // YS May 11 - life text
         const life = document.createElement("p");
@@ -109,6 +117,47 @@ class RectangularTubeScene extends Scene {
     		life.innerText = "life: " + this.state.life;
     		document.body.appendChild(life);
         this.state.lifeText = life;
+    }
+
+    addMusic() {
+      let sound = new Audio(this.state.listener);
+      //if (this.state.musicSelect === 3) debugger;
+      // load a sound and set it as the Audio object's buffer
+      var audioLoader = new AudioLoader();
+
+      this.audioLoader = audioLoader;
+      //console.log(this.state.musicSelect);
+      if (this.state.musicSelect === 0 || this.state.musicSelect === 1) {
+      audioLoader.load( MUSIC1, function( buffer ) {
+        sound.setBuffer( buffer );
+        sound.setLoop( true );
+        sound.setVolume( 0.5 );
+        // uncomment this line to play automatically
+        //sound.play();
+      });
+    }
+    if (this.state.musicSelect === 2) {
+    audioLoader.load( MUSIC2, function( buffer ) {
+      sound.setBuffer( buffer );
+      sound.setLoop( true );
+      sound.setVolume( 0.5 );
+      // uncomment this line to play automatically
+      //sound.play();
+    });
+  }
+    if (this.state.musicSelect === 3) {
+    audioLoader.load( MUSIC3, function( buffer ) {
+      sound.setBuffer( buffer );
+      sound.setLoop( true );
+      sound.setVolume( 0.5 );
+      // uncomment this line to play automatically
+      //sound.play();
+    });
+  }
+      this.state.music = sound;
+      // Analyze frequency
+      var analyser = new AudioAnalyser(this.state.music, 64 );
+      this.state.analyser = analyser;
     }
 
     generateRandom(min, max) {
