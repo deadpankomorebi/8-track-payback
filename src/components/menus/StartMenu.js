@@ -66,7 +66,7 @@ class StartMenu {
 			// remove start menu children
 			document.body.removeChild(title);
 			document.body.removeChild(names);
-			document.body.removeChild(instructions);
+			document.body.removeChild(instruct);
 			document.body.removeChild(button);
 
 			// begin game after short delay
