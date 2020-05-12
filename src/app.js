@@ -22,7 +22,7 @@ const scene = new RectangularTubeScene(camera.getAudioListener(), camera);
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(0, 1, -10);
+camera.position.set(0, 2, -10);
 camera.lookAt(new Vector3(0, 0, 100));
 let camDirection = new Vector3();
 camera.getWorldDirection(camDirection);

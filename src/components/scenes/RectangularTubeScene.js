@@ -30,12 +30,15 @@ class RectangularTubeScene extends Scene {
             currentSpeed: 0.1,
             camera: camera,
             //test: 20,
-            tube1: null,
-            tube2: null,
+            tube: null,
+            //tube2: null,
             obstacles: [],
             //obstacles2: [],
             //group1: false,
-            //life: 3,
+            life: 3,
+            lifeText: null,
+            instrumentCollision: false,
+            obstacleCollision: false,
         };
 
         // Set background to a nice color
@@ -68,11 +71,8 @@ class RectangularTubeScene extends Scene {
                     instruments[i].visible = false;
                 }
 
-        //const rectangularTube = new RectangularTube(this);
-        //this.state.tube = rectangularTube;
         const headphones = new Headphones(this);
 
-        // YS May 9 edit
         this.state.player = headphones;
         //this.add(land, lights, rectangularTube, headphones);
         this.add(lights, headphones, boombox);
@@ -83,6 +83,7 @@ class RectangularTubeScene extends Scene {
         this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
         this.state.gui.add(this.state, 'play');
         this.state.gui.add(this.state, 'pause');
+        //this.state.gui.add(this.state, 'life');
 
         // create a global audio source
         var sound = new Audio(audioListener);
@@ -101,6 +102,13 @@ class RectangularTubeScene extends Scene {
         var analyser = new AudioAnalyser(this.state.music, 64 );
         this.state.analyser = analyser;
 
+        // YS May 11 - life text
+        const life = document.createElement("p");
+    		life.id = "life";
+    		life.className = "life";
+    		life.innerText = "life: " + this.state.life;
+    		document.body.appendChild(life);
+        this.state.lifeText = life;
     }
 
     generateRandom(min, max) {
@@ -124,11 +132,18 @@ class RectangularTubeScene extends Scene {
     checkInstrumentCollision(instrument) {
         if (instrument.boundingBox) {
         const iBound = instrument.boundingBox;
+        iBound.min.z -= 2;
+        iBound.max.z -= 2;
         const hBound = this.state.player.boundingBox;
 
-        if (iBound.intersectsBox(hBound) === true) {
+        if (iBound.intersectsBox(hBound)) {
             //new LoseMenu();
             this.state.loseEnd = true;
+            //this.state.instrumentCollision = true;
+            //instrument.tween.gotoAndPlay(0);
+            //nstrument.handleCollision();
+            //this.state.life -= 0.5;
+            //this.state.lifeText.innerText = "life: " + this.state.life;
         }
     }
     }
@@ -193,16 +208,14 @@ class RectangularTubeScene extends Scene {
 
     addTube() {
       let depth = this.state.player.position.z;
-      const rectangularTube1 = new RectangularTube(this, depth);
-      this.state.tube1 = rectangularTube1;
-      const rectangularTube2 = new RectangularTube(this, depth + 100);
-      this.state.tube2 = rectangularTube2;
-      this.add(rectangularTube1, rectangularTube2);
+      const rectangularTube = new RectangularTube(this, depth);
+      this.state.tube = rectangularTube;
+      this.add(rectangularTube);
     }
 
     addObstacles() {
       for (let y = 0; y < 4; y+=2) {
-        for (let z = 0; z < 20; z+=2) {
+        for (let z = 20; z > -4; z-=2) {
           let position1 = new Vector3(-4.1, y, z);
           let obstacle1 = new Obstacle(this, position1);
           let position2 = new Vector3(4.1, y, z);
@@ -235,10 +248,23 @@ class RectangularTubeScene extends Scene {
         this.checkInstrumentCollision(this.instruments[i]);
      }
 
+     if (this.state.instrumentCollision) {
+       this.state.life -= 1;
+       this.state.lifeText.innerText = "life: " + this.state.life;
+       this.state.instrumentCollision = false;
+     }
+     if (this.state.obstacleCollision) {
+       this.state.life -= 1;
+       this.state.lifeText.innerText = "life: " + this.state.life;
+       this.state.obstacleCollision = false;
+     }
+
+     if (this.state.life === 0) this.state.loseEnd = true;
      if (this.state.loseEnd) {
        this.pause();
-
-
+       //this.state.life = 3;
+       this.state.lifeText.innerText = "life: " + this.state.life;
+       this.state.life = 3;
     }
   }
 }

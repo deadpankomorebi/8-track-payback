@@ -7,8 +7,8 @@ class RectangularTube extends Group {
 
         this.name = 'rectangular tube';
 
-        var v1 = new Vector3(0, 0, -100);
-        var v2 = new Vector3(0, 0, 50);
+        var v1 = new Vector3(0, 0, -10);
+        var v2 = new Vector3(0, 0, 150);
         var path = new LineCurve3 (v1, v2);
         var geometry = new TubeGeometry(
                             path,              // Curve
@@ -30,13 +30,11 @@ class RectangularTube extends Group {
 					speed: parent.state.currentSpeed,
 				};
 
-        // YS May 9
-        parent.addToUpdateList(this);
     }
 
     update() {
-      this.position.z -= this.state.speed;
-      if (this.position.z < 0) this.position.z += 50;
+      //this.position.z -= this.state.speed;
+      //if (this.position.z < 0) this.position.z += 50;
     }
 }
 

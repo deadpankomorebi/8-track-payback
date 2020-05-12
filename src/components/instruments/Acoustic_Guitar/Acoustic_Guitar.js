@@ -38,13 +38,13 @@ class AcousticGuitar extends Group {
     moveForward(callback) {
         var currentZ = this.position.z;
 
-    	const approach = new TWEEN.Tween(this.position)	
+    	const approach = new TWEEN.Tween(this.position)
     		.to({ z: this.position.z - 60}, 4000);
 
       approach.onComplete( () => {
         this.visible = false;
         this.position.z = currentZ;
- 
+
         console.log("Move Forward is complete");
         console.log(this);
         callback();
@@ -52,7 +52,7 @@ class AcousticGuitar extends Group {
 
     		approach.start();
 
-            
+
 }
 
 update(timeStamp) {

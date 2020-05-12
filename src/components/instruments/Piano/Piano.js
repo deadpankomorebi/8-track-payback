@@ -40,7 +40,7 @@ class Piano extends Group {
     moveForward(callback) {
         var currentZ = this.position.z;
 
-    	const approach = new TWEEN.Tween(this.position)	
+    	const approach = new TWEEN.Tween(this.position)
     		.to({ z: this.position.z - 60}, 4000);
 
 approach.onComplete( () => {
@@ -52,8 +52,8 @@ approach.onComplete( () => {
         callback();
     });
 
-    		approach.start(); 
-            
+    		approach.start();
+
 }
 
 update(timeStamp) {
