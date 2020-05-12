@@ -106,11 +106,33 @@
 	color: #1a81cb;
 }
 
+.winButton {
+	position: absolute;
+	top: 500px;
+	left: 37.5%;
+	width: 25%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 4vh;
+	color: #1a81cb;
+}
+
 .button2 {
 	position: absolute;
 	top: 350px;
 	left: 25%;
 	width: 50%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 4vh;
+	color: #1a81cb;
+}
+
+.pauseButton {
+	position: absolute;
+	top: 500px;
+	left: 37.5%;
+	width: 25%;
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 4vh;
@@ -126,6 +148,18 @@
 	font-family: trebuchet ms;
 	font-size: 4vh;
 	color: #1a81cb;
+}
+
+.congrats {
+	position: absolute;
+	top: 50px;
+	padding-top: 100px;
+	left: 25%;
+	width: 50%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 12vh;
+	color: rgb(187, 255, 74);
 }
 
 body {

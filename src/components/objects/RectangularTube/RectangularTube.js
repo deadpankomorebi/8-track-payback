@@ -17,7 +17,7 @@ class RectangularTube extends Group {
                             4,             // radial segments
                             false           // closed
                             );
-        var material = new MeshNormalMaterial( {color:0xffff00});
+        var material = new MeshNormalMaterial;
         material.side = DoubleSide;
         var tube = new Mesh(geometry, material);
         tube.position.set(0, 1, depth);

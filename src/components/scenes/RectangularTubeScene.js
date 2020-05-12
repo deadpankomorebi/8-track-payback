@@ -2,7 +2,6 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, RectangularTube, Headphones, Obstacle, Boombox } from 'objects';
 import { AcousticGuitar, Piano, Violin } from 'instruments';
-import { LoseMenu } from 'menus';
 import { BasicLights } from 'lights';
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
 import MUSIC1 from './You Gotta Be.mp3';
@@ -53,12 +52,6 @@ class RectangularTubeScene extends Scene {
 
                 const boombox = new Boombox();
 
-              //  this.add(lights, rectangularTube, boombox);
-
-        // add player to scene
-                  //this.player = new Headphones();
-                  //this.add(this.player);
-
                   // add instruments to scene
                 const acoustic = new AcousticGuitar();
                 const piano = new Piano();
@@ -98,7 +91,7 @@ class RectangularTubeScene extends Scene {
         //if (this.state.musicSelect === 3) {
         audioLoader.load( MUSIC3, function( buffer ) {
           sound.setBuffer( buffer );
-          sound.setLoop( true );
+          sound.setLoop( false );
           sound.setVolume( 0.5 );
           // uncomment this line to play automatically
           //sound.play();
@@ -158,6 +151,11 @@ class RectangularTubeScene extends Scene {
       // Analyze frequency
       var analyser = new AudioAnalyser(this.state.music, 64 );
       this.state.analyser = analyser;
+
+      this.state.music.onEnded = () => {
+          this.state.winRestart = true;
+          console.log("this song has ended");
+      }
     }
 
     generateRandom(min, max) {
@@ -186,7 +184,7 @@ class RectangularTubeScene extends Scene {
         const hBound = this.state.player.boundingBox;
 
         if (iBound.intersectsBox(hBound)) {
-            //new LoseMenu();
+
             this.state.loseEnd = true;
             //this.state.instrumentCollision = true;
             //instrument.tween.gotoAndPlay(0);

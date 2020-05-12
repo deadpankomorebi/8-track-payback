@@ -8,13 +8,10 @@
 */
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { RectangularTubeScene } from 'scenes';
 import { CamListener } from 'camListener';
-import { StartMenu } from 'menus';
-
-// ME May 9 edit
-// overlays lose menu over game screen *need to connect to lose conditions*
-import { LoseMenu } from 'menus';
+import { StartMenu, LoseMenu, PauseMenu, WinMenu } from 'menus';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
@@ -45,16 +42,18 @@ controls.update();
 
   // ME May 11; start state
 startGame(scene);
+var last;
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-
 
   controls.update();
   renderer.render(scene, camera);
 
   if (scene.state.gamePlay) {
   scene.update && scene.update(timeStamp);
+
+
   //camera.translateX(2);
   //camera.position.add(camDirection.clone().multiplyScalar(2));
   //debugger;
@@ -65,6 +64,13 @@ const onAnimationFrameHandler = (timeStamp) => {
     scene.state.gamePlay = false;
   }
   }
+
+  if (scene.state.winRestart) {
+    if (!scene.state.winMenuCreated) {
+      const winMenu = new WinMenu(scene);
+    }
+  }
+
 }
   window.requestAnimationFrame(onAnimationFrameHandler);
 };
@@ -87,3 +93,21 @@ function startGame(scene) {
   const startMenu = new StartMenu(scene); // ME - May 8 edit
   }
 }
+
+
+// Pause Menu in progress
+function takingCareOfKeypress(event) {
+  if (event.target.tagName === "INPUT") {return; }
+
+const keyMap = {
+  Escape: null,
+}
+
+if (!keyMap.hasOwnProperty(event.key)) { return; }
+else {
+  if (event.key == "Escape") {
+    new PauseMenu(scene);
+  }
+}
+}
+window.addEventListener("keydown", takingCareOfKeypress);
