@@ -11,7 +11,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { RectangularTubeScene } from 'scenes';
 import { CamListener } from 'camListener';
-import { StartMenu, LoseMenu, PauseMenu } from 'menus';
+import { StartMenu, LoseMenu, PauseMenu, WinMenu } from 'menus';
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
@@ -63,6 +63,12 @@ const onAnimationFrameHandler = (timeStamp) => {
     if (!scene.state.loseMenuCreated) {
     const loseMenu = new LoseMenu(scene);
   }
+  }
+
+  if (scene.state.winRestart) {
+    if (!scene.state.winMenuCreated) {
+      const winMenu = new WinMenu(scene);
+    }
   }
 
 }

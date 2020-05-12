@@ -1,16 +1,9 @@
-class PauseMenu {
+class WinMenu {
 	constructor(scene) {
 
-		this.name = 'pauseMenu';
+		this.name = 'winMenu';
 
-// don't bring up menu if lose menu is already there
-		if (scene.state.loseEnd || scene.state.startBegin || scene.state.pauseMenuCreated || scene.state.winRestart) {
-			return;
-		}
-
-		// put in pause state
-		scene.state.pauseMenuCreated = true;
-		scene.state.paused = true;
+		scene.state.winMenuCreated = true;
 		scene.state.gamePlay = false;
 
 		// link to stylesheet
@@ -24,7 +17,7 @@ class PauseMenu {
 		// hide all other elements in body
 		var length = document.body.children.length;
 		for (let i = 0; i < length; i++) {
-			document.body.children[i].style.opacity = .5;
+			document.body.children[i].style.opacity = 1;
 		}
 
 		// Creation of title
@@ -36,16 +29,16 @@ class PauseMenu {
 
 		// Names
 		const names = document.createElement("H2");
-		names.id = "name";
+		names.id = "names";
 		names.className = "author";
 		names.innerText = "by Yunzi Shi & Milan Eldridge";
 		document.body.appendChild(names);
 
 		// instructions
 		const instructions = document.createElement("p");
-		instructions.id = "directions";
-		instructions.className = "instructions";
-		instructions.innerText = "(Pause for Applause!)";
+		instructions.id = "congrats";
+		instructions.className = "congrats";
+		instructions.innerText = "Congratulations! You won!";
 		document.body.appendChild(instructions);
 
 
@@ -53,9 +46,6 @@ class PauseMenu {
 		const button = document.createElement("button");
 		button.id = "btn";
 		button.onclick = function startPayback() {
-
-			// time at which unpause button is clicked
-			scene.state.unpauseTime = new Date().getTime();
 
 			for (let i = 0; i < length; i++) {
 				document.body.children[i].style.opacity = 1;
@@ -67,23 +57,21 @@ class PauseMenu {
 			document.body.removeChild(instructions);
 			document.body.removeChild(button);
 
-			// restart game from where it left off
-			scene.state.paused = false;
-			scene.state.gamePlay = true;
-			scene.state.pauseMenuCreated = false;
+			setTimeout(() => {
+				scene.state.gamePlay = true;
+			}, 1000); // wait 1000 miliseconds before beginning game
 
-			//setTimeout(() => {
-			//	scene.state.gamePlay = true;
-			//}, 1000); // wait 1000 miliseconds before beginning game
+			scene.state.winRestart = false;
+			scene.state.winMenuCreated = false;
 			
 
 		}
-		button.className = "pauseButton";
+		button.className = "winButton";
 		button.type = "button";
-		button.innerText = "|R E S U M E|";
+		button.innerText = "~Play again~";
 		document.body.appendChild(button);
 
 	}
 }
 
-export default PauseMenu;
+export default WinMenu;

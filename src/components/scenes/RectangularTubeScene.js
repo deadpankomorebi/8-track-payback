@@ -2,7 +2,6 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Flower, Land, RectangularTube, Headphones, Obstacle, Boombox } from 'objects';
 import { AcousticGuitar, Piano, Violin } from 'instruments';
-import { LoseMenu } from 'menus';
 import { BasicLights } from 'lights';
 // YS - May 7 edit
 import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
@@ -47,12 +46,6 @@ class RectangularTubeScene extends Scene {
 
                 const boombox = new Boombox();
 
-              //  this.add(lights, rectangularTube, boombox);
-
-        // add player to scene
-                  //this.player = new Headphones();
-                  //this.add(this.player);
-
                   // add instruments to scene
                 const acoustic = new AcousticGuitar();
                 const piano = new Piano();
@@ -91,7 +84,7 @@ class RectangularTubeScene extends Scene {
         var audioLoader = new AudioLoader();
         audioLoader.load( MUSIC, function( buffer ) {
           sound.setBuffer( buffer );
-          sound.setLoop( true );
+          sound.setLoop( false );
           sound.setVolume( 0.5 );
           // uncomment this line to play automatically
           //sound.play();
@@ -100,6 +93,11 @@ class RectangularTubeScene extends Scene {
         // Analyze frequency
         var analyser = new AudioAnalyser(this.state.music, 64 );
         this.state.analyser = analyser;
+
+        this.state.music.onEnded = () => {
+            this.state.winRestart = true;
+            console.log("this song has ended");
+        }
 
     }
 
@@ -127,7 +125,6 @@ class RectangularTubeScene extends Scene {
         const hBound = this.state.player.boundingBox;
 
         if (iBound.intersectsBox(hBound) === true) {
-            //new LoseMenu();
             this.state.loseEnd = true;
         }
     }
