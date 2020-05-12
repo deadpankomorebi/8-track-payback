@@ -34,25 +34,12 @@ class StartMenu {
 		document.body.appendChild(names);
 
 		// instructions
-		const instruct = document.createElement("div");
-		instruct.className = "command";
-		document.body.appendChild(instruct);
+		const instructions = document.createElement("p");
+		instructions.id = "directions";
+		instructions.className = "instructions";
+		instructions.innerText = "INSERT INSTRUCTIONS HERE";
+		document.body.appendChild(instructions);
 
-		const instructions1 = document.createElement("p");
-		instructions1.id = "directions1";
-		instructions1.innerText = "wasd/arrow keys to move";
-
-		const instructions2 = document.createElement("p");
-		instructions2.id = "directions2";
-		instructions2.innerText = "escape to pause";
-
-		const instructions3 = document.createElement("p");
-		instructions3.id = "directions3";
-		instructions3.innerText = "press play and avoid all obstacles";
-		
-		instruct.appendChild(instructions1);
-		instruct.appendChild(instructions2);
-		instruct.appendChild(instructions3);
 
 		// button
 		const button = document.createElement("button");
@@ -79,7 +66,7 @@ class StartMenu {
 
 
 		}
-		button.className = "startButton";
+		button.className = "button";
 		button.type = "button";
 		button.innerText = "CLICK TO BEGIN THE ATTACK OF THE 8-TRACK";
 		document.body.appendChild(button);

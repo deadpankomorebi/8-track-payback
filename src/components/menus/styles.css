@@ -18,17 +18,6 @@
 	color: rgb(225, 221, 6);
 }
 
-.command {
-	position: absolute;
-	top: 125px; 
-	padding-top: 100px;
-	width: 100%;
-	text-align: center;
-	font-family: trebuchet ms;
-	font-size: 7vh;
-	color: rgb(187, 255, 74);
-}
-
 .instructions {
 	position: absolute;
 	top: 160px;
@@ -54,17 +43,6 @@
 .button {
 	position: absolute;
 	top: 500px;
-	left: 25%;
-	width: 50%;
-	text-align: center;
-	font-family: trebuchet ms;
-	font-size: 4vh;
-	color: #1a81cb;
-}
-
-.startButton {
-	position: absolute;
-	top: 600px;
 	left: 25%;
 	width: 50%;
 	text-align: center;
