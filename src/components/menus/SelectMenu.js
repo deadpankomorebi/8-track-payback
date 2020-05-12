@@ -59,6 +59,8 @@ class SelectMenu {
 			// begin game after short delay
 			scene.state.startBegin = false;
 			scene.state.musicSelect = 1;
+			scene.state.player.position.set(0,0,0);
+			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
 
 			setTimeout(() => {
@@ -92,6 +94,8 @@ class SelectMenu {
 			// begin game after short delay
 			scene.state.startBegin = false;
 			scene.state.musicSelect = 2;
+			scene.state.player.position.set(0,0,0);
+			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
 
 			setTimeout(() => {
@@ -125,6 +129,8 @@ class SelectMenu {
 			// begin game after short delay
 			scene.state.startBegin = false;
 			scene.state.musicSelect = 3;
+			scene.state.player.position.set(0,0,0);
+			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
 
 			setTimeout(() => {

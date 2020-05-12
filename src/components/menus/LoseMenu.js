@@ -60,6 +60,7 @@ button.onclick = function startPayback() {
 
   scene.state.loseEnd = false;
   scene.state.loseMenuCreated = false;
+	scene.state.life = 3;
 	const selectMenu = new SelectMenu(scene);
 
 }

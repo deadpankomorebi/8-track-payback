@@ -108,7 +108,7 @@ class RectangularTubeScene extends Scene {
         // Analyze frequency
         var analyser = new AudioAnalyser(this.state.music, 64 );
         this.state.analyser = analyser;*/
-      this.addMusic(3);
+      this.addMusic();
 
         // YS May 11 - life text
         const life = document.createElement("p");
@@ -127,7 +127,7 @@ class RectangularTubeScene extends Scene {
 
       this.audioLoader = audioLoader;
       //console.log(this.state.musicSelect);
-      if (this.state.musicSelect === 0 || this.state.musicSelect === 1) {
+      if (this.state.musicSelect === 1) {
       audioLoader.load( MUSIC1, function( buffer ) {
         sound.setBuffer( buffer );
         sound.setLoop( true );
@@ -310,7 +310,7 @@ class RectangularTubeScene extends Scene {
 
      if (this.state.life === 0) this.state.loseEnd = true;
      if (this.state.loseEnd) {
-       this.pause();
+       this.state.music.stop();
        //this.state.life = 3;
        this.state.lifeText.innerText = "life: " + this.state.life;
        this.state.life = 3;

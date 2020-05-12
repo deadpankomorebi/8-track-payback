@@ -62,6 +62,7 @@ const onAnimationFrameHandler = (timeStamp) => {
     //scene.dispose();
     if (!scene.state.loseMenuCreated) {
     const loseMenu = new LoseMenu(scene);
+    scene.state.gamePlay = false;
   }
   }
 }
