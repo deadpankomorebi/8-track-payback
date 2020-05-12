@@ -29,14 +29,14 @@ class SelectMenu {
 		names.id = "name";
 		names.className = "author";
 		names.innerText = "by Yunzi Shi & Milan Eldridge";
-		document.body.appendChild(names);
+		document.body.appendChild(names);*/
 
 		// instructions
 		const instructions = document.createElement("p");
 		instructions.id = "directions";
-		instructions.className = "instructions";
-		instructions.innerText = "INSERT INSTRUCTIONS HERE";
-		document.body.appendChild(instructions);*/
+		instructions.className = "instructions1";
+		instructions.innerText = "Select Music to be played";
+		document.body.appendChild(instructions);
 
 
 		// button
@@ -49,9 +49,7 @@ class SelectMenu {
 			}
 
 			// remove select menu children
-			//document.body.removeChild(title);
-			//document.body.removeChild(names);
-			//document.body.removeChild(instructions);
+			document.body.removeChild(instructions);
 			document.body.removeChild(button1);
 			document.body.removeChild(button2);
 			document.body.removeChild(button3);
@@ -71,7 +69,7 @@ class SelectMenu {
 		}
 		button1.className = "button1";
 		button1.type = "button1";
-		button1.innerText = "YGTB";
+		button1.innerText = "Jazz Hiphop";
 		document.body.appendChild(button1);
 
 
@@ -84,9 +82,7 @@ class SelectMenu {
 			}
 
 			// remove start menu children
-			//document.body.removeChild(title);
-			//document.body.removeChild(names);
-			//document.body.removeChild(instructions);
+			document.body.removeChild(instructions);
 			document.body.removeChild(button1);
 			document.body.removeChild(button2);
 			document.body.removeChild(button3);
@@ -106,7 +102,7 @@ class SelectMenu {
 		}
 		button2.className = "button2";
 		button2.type = "button2";
-		button2.innerText = "Kirby";
+		button2.innerText = "8-bit";
 		document.body.appendChild(button2);
 
 
@@ -119,9 +115,7 @@ class SelectMenu {
 			}
 
 			// remove start menu children
-			//document.body.removeChild(title);
-			//document.body.removeChild(names);
-			//document.body.removeChild(instructions);
+			document.body.removeChild(instructions);
 			document.body.removeChild(button1);
 			document.body.removeChild(button2);
 			document.body.removeChild(button3);
@@ -141,7 +135,7 @@ class SelectMenu {
 		}
 		button3.className = "button3";
 		button3.type = "button3";
-		button3.innerText = "Offenbach";
+		button3.innerText = "Classical";
 		document.body.appendChild(button3);
 
 	}

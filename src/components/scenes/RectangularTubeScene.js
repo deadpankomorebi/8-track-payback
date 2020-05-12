@@ -297,11 +297,11 @@ class RectangularTubeScene extends Scene {
         this.checkInstrumentCollision(this.instruments[i]);
      }
 
-     if (this.state.instrumentCollision) {
+     /*if (this.state.instrumentCollision) {
        this.state.life -= 1;
        this.state.lifeText.innerText = "life: " + this.state.life;
        this.state.instrumentCollision = false;
-     }
+     }*/
      if (this.state.obstacleCollision) {
        this.state.life -= 1;
        this.state.lifeText.innerText = "life: " + this.state.life;
@@ -311,7 +311,6 @@ class RectangularTubeScene extends Scene {
      if (this.state.life === 0) this.state.loseEnd = true;
      if (this.state.loseEnd) {
        this.state.music.stop();
-       //this.state.life = 3;
        this.state.lifeText.innerText = "life: " + this.state.life;
        this.state.life = 3;
     }

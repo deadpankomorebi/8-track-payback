@@ -14,10 +14,11 @@ class Obstacle extends Group {
       geometry: null,
       material: null,
       cube: null,
-      position: position,
+      position: position, // the original position
       parent: parent,
       speed: parent.state.currentSpeed,
       frequencyNum: 256,
+      scaleFactor: 33,
     };
 
     // Create a box
@@ -25,7 +26,7 @@ class Obstacle extends Group {
     geometry.computeBoundingBox();
 
     let baseGeometry = geometry;
-    let bigGeometry = new BoxBufferGeometry( this.state.frequencyNum / 35, 1, 1 );
+    let bigGeometry = new BoxBufferGeometry( this.state.frequencyNum / this.state.scaleFactor, 1, 1 );
     let attribute = bigGeometry.getAttribute('position');
     let name = 'target';
     attribute.name = name;
@@ -51,66 +52,63 @@ class Obstacle extends Group {
     parent.addToUpdateList(this);
   }
 
-// YS May 9: Test if the player hit the bounding box of the obstacle
+  // Test if the player hit the bounding box of the obstacle
   checkCollision(player, freqData) {
+    // do nothing if the obstacle's y and z positions cannot intersect with the player
     if (this.state.cube.position.y + 0.5 < player.position.y) return false;
     if (this.state.cube.position.y - 0.5 > player.position.y) return false;
     if (this.state.cube.position.z + 0.5 < player.position.z) return false;
     if (this.state.cube.position.z - 0.5 > player.position.z) return false;
 
+    // Chek if the width of the obstacle (depending on freqData) intersects with
+    // the player
     let end;
-    if (this.state.cube.position.x < 0) {
-      end = freqData / 70 + this.state.cube.position.x;
-      if (end > player.position.x - 0.35) {//console.log(end);console.log(player.position.x);
-        return true;}
-    } else {
-      end = - freqData / 70 + this.state.cube.position.x;
-      if (end < player.position.x + 0.35) {//console.log(end);console.log(player.position.x);
-        return true;}
+    if (this.state.cube.position.x < 0) { // obstacles on the right side
+      end = freqData / (this.state.scaleFactor * 2) + this.state.cube.position.x;
+      if (end > player.position.x - 0.35) return true;
+    } else { // obstacles on the left side
+      end = - freqData / (this.state.scaleFactor * 2) + this.state.cube.position.x;
+      if (end < player.position.x + 0.35) return true;
     }
     return false;
-    //let length = freqData / 60
-    //this.state.geometry.computeBoundingBox();
-    //let box = this.state.geometry.boundingBox;
-    /*let box = new Box3().setFromObject(this.state.geometry);
-    console.log(box);
-    //debugger;
-    //box.min.add(this.state.cube.position);
-    //box.max.add(this.state.cube.position);
-    //box.min.x += this.state.cube.position.x;
-    //box.max.x += this.state.cube.position.x;
-    //debugger;
-    //let box = new Box3(this.state.geometry.boundingBox.min.add(this.state.position),
-                       //this.state.geometry.boundingBox.max.add(this.state.position));
-    if (box.containsPoint(player.position)) {//debugger;
-    return true;}
-    else return false;*/
+
+        // collision detection using bounding boxes, did not work out
+        //this.state.geometry.computeBoundingBox();
+        //let box = this.state.geometry.boundingBox;
+        /*box.min.add(this.state.cube.position);
+        //box.max.add(this.state.cube.position);
+        //box.min.x += this.state.cube.position.x;
+        //box.max.x += this.state.cube.position.x;
+        //let box = new Box3(this.state.geometry.boundingBox.min.add(this.state.position),
+        //this.state.geometry.boundingBox.max.add(this.state.position));
+        if (box.containsPoint(player.position)) {
+        return true;}
+        else return false;*/
   }
 
   update(timeStamp, freqData, player) {
-    // YS May 10: instead of creating new meshes,
-    // use morphTargets
+    // instead of creating new meshes, use morphTargets
     let target = {};
     target[0] = freqData / this.state.frequencyNum;
     const durationInMs = 100;
     new TWEEN.Tween(this.state.cube.morphTargetInfluences)
-      .to(target, durationInMs)
-      .start();
+    .to(target, durationInMs)
+    .start();
     this.state.geometry.computeBoundingBox();
 
     // Advance tween animations, if any exist
     TWEEN.update();
-    // Check if avatar collide into the obstacle
+    // Check if avatar collide into the obstacle, if so change the flag in parent scene
     if(this.checkCollision(player, freqData)) {
-    //this.state.parent.state.loseEnd = true;
-    //this.state.parent.state.life--;
-    //this.state.parent.state.lifeText.innerText = "life: " + this.state.parent.state.life;
-    this.state.parent.state.obstacleCollision = true;
-  }
+      this.state.parent.state.obstacleCollision = true;
+    }
 
+    // Move the obstacle toward the player
     this.state.cube.position.z -= this.state.speed;
-    //this.state.position.z = this.position.z;
-    if (this.state.cube.position.z < player.position.z - 4) this.state.cube.position.z = this.state.position.z;
+    // When the obstacle gets too close to the screen,
+    // return it to the original position
+    if (this.state.cube.position.z < player.position.z - 4)
+      this.state.cube.position.z = this.state.position.z;
   }
 }
 

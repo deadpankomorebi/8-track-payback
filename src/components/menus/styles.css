@@ -29,6 +29,17 @@
 	color: rgb(187, 255, 74);
 }
 
+.instructions1 {
+	position: absolute;
+	top: 10px;
+	padding-top: 100px;
+	width: 100%;
+	text-align: center;
+	font-family: trebuchet ms;
+	font-size: 7vh;
+	color: rgb(187, 255, 74);
+}
+
 .button {
 	position: absolute;
 	top: 500px;
@@ -86,7 +97,7 @@
 
 .button1 {
 	position: absolute;
-	top: 100px;
+	top: 250px;
 	left: 25%;
 	width: 50%;
 	text-align: center;
@@ -97,7 +108,7 @@
 
 .button2 {
 	position: absolute;
-	top: 300px;
+	top: 350px;
 	left: 25%;
 	width: 50%;
 	text-align: center;
@@ -108,7 +119,7 @@
 
 .button3 {
 	position: absolute;
-	top: 500px;
+	top: 450px;
 	left: 25%;
 	width: 50%;
 	text-align: center;
