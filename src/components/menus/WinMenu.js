@@ -1,3 +1,5 @@
+import { SelectMenu } from 'menus';
+
 class WinMenu {
 	constructor(scene) {
 
@@ -63,7 +65,9 @@ class WinMenu {
 
 			scene.state.winRestart = false;
 			scene.state.winMenuCreated = false;
-			
+			scene.state.life = 3;
+			const selectMenu = new SelectMenu(scene);
+
 
 		}
 		button.className = "winButton";

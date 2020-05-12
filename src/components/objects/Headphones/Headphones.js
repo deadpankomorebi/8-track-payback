@@ -50,11 +50,11 @@ class Headphones extends Group {
         if (this.position.y < -1.4) {
             this.position.y = -1.4;
         }
-        if (this.position.x > 3.0) {
-            this.position.x = 3.0
+        if (this.position.x > 2.0) {
+            this.position.x = 2.0
         }
-        if (this.position.x < -3.0) {
-            this.position.x = -3.0;
+        if (this.position.x < -2.0) {
+            this.position.x = -2.0;
         }
     }
     }

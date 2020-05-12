@@ -123,7 +123,7 @@ class RectangularTubeScene extends Scene {
       if (this.state.musicSelect === 1) {
       audioLoader.load( MUSIC1, function( buffer ) {
         sound.setBuffer( buffer );
-        sound.setLoop( true );
+        sound.setLoop( false );
         sound.setVolume( 0.5 );
         // uncomment this line to play automatically
         //sound.play();
@@ -132,7 +132,7 @@ class RectangularTubeScene extends Scene {
     if (this.state.musicSelect === 2) {
     audioLoader.load( MUSIC2, function( buffer ) {
       sound.setBuffer( buffer );
-      sound.setLoop( true );
+      sound.setLoop( false );
       sound.setVolume( 0.5 );
       // uncomment this line to play automatically
       //sound.play();
@@ -141,7 +141,7 @@ class RectangularTubeScene extends Scene {
     if (this.state.musicSelect === 3) {
     audioLoader.load( MUSIC3, function( buffer ) {
       sound.setBuffer( buffer );
-      sound.setLoop( true );
+      sound.setLoop( false );
       sound.setVolume( 0.5 );
       // uncomment this line to play automatically
       //sound.play();
@@ -179,8 +179,8 @@ class RectangularTubeScene extends Scene {
     checkInstrumentCollision(instrument) {
         if (instrument.boundingBox) {
         const iBound = instrument.boundingBox;
-        iBound.min.z -= 2;
-        iBound.max.z -= 2;
+        iBound.min.z += 2;
+        iBound.max.z += 2;
         const hBound = this.state.player.boundingBox;
 
         if (iBound.intersectsBox(hBound)) {
@@ -308,7 +308,9 @@ class RectangularTubeScene extends Scene {
 
      if (this.state.life === 0) this.state.loseEnd = true;
      if (this.state.loseEnd) {
-       this.state.music.stop();
+       if (this.state.music.isPlaying) {
+         this.state.music.stop();
+       }
        this.state.lifeText.innerText = "life: " + this.state.life;
        this.state.life = 3;
     }
