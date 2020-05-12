@@ -1,3 +1,5 @@
+import { SelectMenu } from 'menus';
+
 class LoseMenu {
 	constructor(scene) {
 
@@ -58,6 +60,7 @@ button.onclick = function startPayback() {
 
   scene.state.loseEnd = false;
   scene.state.loseMenuCreated = false;
+	const selectMenu = new SelectMenu(scene);
 
 }
 button.className = "button";
