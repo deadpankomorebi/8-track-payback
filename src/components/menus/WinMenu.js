@@ -37,11 +37,11 @@ class WinMenu {
 		document.body.appendChild(names);
 
 		// instructions
-		const instructions = document.createElement("p");
-		instructions.id = "congrats";
-		instructions.className = "congrats";
-		instructions.innerText = "Congratulations! You won!";
-		document.body.appendChild(instructions);
+		const congrats = document.createElement("p");
+		congrats.id = "congrats";
+		congrats.className = "congrats";
+		congrats.innerText = "Congratulations! You won!";
+		document.body.appendChild(congrats);
 
 
 		// button
