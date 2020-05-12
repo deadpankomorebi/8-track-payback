@@ -55,8 +55,8 @@ class Obstacle extends Group {
   // Test if the player hit the bounding box of the obstacle
   checkCollision(player, freqData) {
     // do nothing if the obstacle's y and z positions cannot intersect with the player
-    if (this.state.cube.position.y + 0.5 < player.position.y - 0.6) return false;
-    if (this.state.cube.position.y - 0.5 > player.position.y + 0.6) return false;
+    if (this.state.cube.position.y + 0.5 < player.position.y - 0.5) return false;
+    if (this.state.cube.position.y - 0.5 > player.position.y + 0.5) return false;
     if (this.state.cube.position.z + 0.5 < player.position.z) return false;
     if (this.state.cube.position.z - 0.5 > player.position.z) return false;
 

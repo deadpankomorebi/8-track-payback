@@ -303,6 +303,7 @@ class RectangularTubeScene extends Scene {
      if (this.state.obstacleCollision) {
        this.state.life -= 1;
        this.state.lifeText.innerText = "life: " + this.state.life;
+       this.state.player.position.set(0,0,0);
        this.state.obstacleCollision = false;
      }
 
