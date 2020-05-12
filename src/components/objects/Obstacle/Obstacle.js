@@ -55,8 +55,8 @@ class Obstacle extends Group {
   // Test if the player hit the bounding box of the obstacle
   checkCollision(player, freqData) {
     // do nothing if the obstacle's y and z positions cannot intersect with the player
-    if (this.state.cube.position.y + 0.5 < player.position.y) return false;
-    if (this.state.cube.position.y - 0.5 > player.position.y) return false;
+    if (this.state.cube.position.y + 0.5 < player.position.y - 0.6) return false;
+    if (this.state.cube.position.y - 0.5 > player.position.y + 0.6) return false;
     if (this.state.cube.position.z + 0.5 < player.position.z) return false;
     if (this.state.cube.position.z - 0.5 > player.position.z) return false;
 
@@ -65,10 +65,16 @@ class Obstacle extends Group {
     let end;
     if (this.state.cube.position.x < 0) { // obstacles on the right side
       end = freqData / (this.state.scaleFactor * 2) + this.state.cube.position.x;
-      if (end > player.position.x - 0.35) return true;
+      if (end > player.position.x - 0.35) {
+        this.state.cube.position.z = this.state.position.z;
+        return true;
+      }
     } else { // obstacles on the left side
       end = - freqData / (this.state.scaleFactor * 2) + this.state.cube.position.x;
-      if (end < player.position.x + 0.35) return true;
+      if (end < player.position.x + 0.35) {
+        this.state.cube.position.z = this.state.position.z;
+        return true;
+      }
     }
     return false;
 

@@ -75,7 +75,7 @@ handleKeypressEvents(event) {
     d: new Vector3(-1, 0, 0),
     }
 
-    const scale = .25; // the magnitude of the movement produced by this keypress
+    const scale = .5; // the magnitude of the movement produced by this keypress
 
 // Check which key was pressed. If it wasn't a triggering key, do nothing.
   if (!keyMap.hasOwnProperty(event.key)) { return; }
