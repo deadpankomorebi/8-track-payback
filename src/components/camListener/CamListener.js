@@ -7,11 +7,11 @@ class CamListener extends PerspectiveCamera {
 
         let listener = new AudioListener();
         this.add(listener);
-        this.state = {listener};
+        this.state = { listener };
     }
 
     getAudioListener() {
-      return this.state.listener;
+        return this.state.listener;
     }
 }
 

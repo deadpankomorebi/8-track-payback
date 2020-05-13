@@ -5,7 +5,7 @@ import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import MODEL from './Boombox.gltf';
 
 class Boombox extends Group {
-	constructor() {
+    constructor() {
         // Call parent Group() constructor
         super();
 
@@ -14,14 +14,12 @@ class Boombox extends Group {
         this.name = 'boombox';
 
         loader.load(MODEL, (gltf) => {
-
-        	gltf.scene.position.set(0, -2.5, 0);
+            gltf.scene.position.set(0, -2.5, 0);
             gltf.scene.rotation.y = Math.PI;
-        	gltf.scene.scale.multiplyScalar(.2);
-        	this.add(gltf.scene);
+            gltf.scene.scale.multiplyScalar(0.2);
+            this.add(gltf.scene);
         });
     }
 }
-
 
 export default Boombox;

@@ -1,4 +1,12 @@
-import { Group, TubeGeometry, LineCurve3, Vector3, MeshNormalMaterial, Mesh, DoubleSide } from 'three';
+import {
+    Group,
+    TubeGeometry,
+    LineCurve3,
+    Vector3,
+    MeshNormalMaterial,
+    Mesh,
+    DoubleSide,
+} from 'three';
 
 class RectangularTube extends Group {
     constructor(parent, depth) {
@@ -9,32 +17,31 @@ class RectangularTube extends Group {
 
         var v1 = new Vector3(0, 0, -10);
         var v2 = new Vector3(0, 0, 80);
-        var path = new LineCurve3 (v1, v2);
+        var path = new LineCurve3(v1, v2);
         var geometry = new TubeGeometry(
-                            path,              // Curve
-                            5,              // tubular segments
-                            5,              // radius
-                            4,             // radial segments
-                            false           // closed
-                            );
-        var material = new MeshNormalMaterial;
+            path, // Curve
+            5, // tubular segments
+            5, // radius
+            4, // radial segments
+            false // closed
+        );
+        var material = new MeshNormalMaterial();
         material.side = DoubleSide;
         var tube = new Mesh(geometry, material);
         tube.position.set(0, 1, depth);
-        tube.rotation.set(0, 0, Math.PI * .25);
+        tube.rotation.set(0, 0, Math.PI * 0.25);
         this.add(tube);
 
         this.state = {
-          length: 120,
-					position: this.position,
-					speed: parent.state.currentSpeed,
-				};
-
+            length: 120,
+            position: this.position,
+            speed: parent.state.currentSpeed,
+        };
     }
 
     update() {
-      //this.position.z -= this.state.speed;
-      //if (this.position.z < 0) this.position.z += 50;
+        //this.position.z -= this.state.speed;
+        //if (this.position.z < 0) this.position.z += 50;
     }
 }
 
