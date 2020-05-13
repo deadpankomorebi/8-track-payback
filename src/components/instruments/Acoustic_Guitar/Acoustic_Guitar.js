@@ -23,7 +23,6 @@ class AcousticGuitar extends Group {
             this.add(gltf.scene);
             guitar.boundingBox = new Box3().setFromObject(gltf.scene);
             guitar.moving = false;
-            console.log("tar");
 
             // Add self to parent's update list
         guitar.parent.addToUpdateList(guitar);
@@ -38,29 +37,26 @@ class AcousticGuitar extends Group {
     moveForward(callback) {
         var currentZ = this.position.z;
 
-    	const approach = new TWEEN.Tween(this.position)
-    		.to({ z: this.position.z - 60}, 4000);
+        const approach = new TWEEN.Tween(this.position)
+        .to({ z: this.position.z - 60}, 4000);
 
-      approach.onComplete( () => {
-        this.visible = false;
-        this.position.z = currentZ;
+        approach.onComplete( () => {
+            this.visible = false;
+            this.position.z = currentZ;
 
-        console.log("Move Forward is complete");
-        console.log(this);
-        callback();
-    });
+            callback();
+        });
 
-    		approach.start();
+        approach.start();
 
 
-}
+    }
 
-update(timeStamp) {
-	TWEEN.update();
-    this.boundingBox = new Box3().setFromObject(this);
-    //var helper = new Box3Helper( this.boundingBox);
-    //this.parent.add(helper);
-}
+    update(timeStamp) {
+       TWEEN.update();
+       this.boundingBox = new Box3().setFromObject(this);
+
+   }
 
 
 }

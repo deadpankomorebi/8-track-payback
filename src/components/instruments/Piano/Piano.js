@@ -18,15 +18,14 @@ class Piano extends Group {
 
             gltf.scene.position.z = 50;
             gltf.scene.rotation.y = Math.PI / 2;
-        	gltf.scene.scale.multiplyScalar(.15);
+            gltf.scene.scale.multiplyScalar(.15);
 
             this.add(gltf.scene);
             pno.boundingBox = new Box3().setFromObject(gltf.scene);
             pno.moving = false;
-            console.log("pano");
 
             // Add self to parent's update list
-        pno.parent.addToUpdateList(pno);
+            pno.parent.addToUpdateList(pno);
 
         });
 
@@ -40,29 +39,25 @@ class Piano extends Group {
     moveForward(callback) {
         var currentZ = this.position.z;
 
-    	const approach = new TWEEN.Tween(this.position)
-    		.to({ z: this.position.z - 60}, 4000);
+        const approach = new TWEEN.Tween(this.position)
+        .to({ z: this.position.z - 60}, 4000);
 
-approach.onComplete( () => {
-        this.visible = false;
-        this.position.z = currentZ;
+        approach.onComplete( () => {
+            this.visible = false;
+            this.position.z = currentZ;
 
-        console.log("Move Forward is complete");
-        console.log(this);
-        callback();
-    });
+            callback();
+        });
 
-    		approach.start();
+        approach.start();
 
-}
+    }
 
-update(timeStamp) {
-	TWEEN.update();
-    this.boundingBox = new Box3().setFromObject(this);
-       // var helper = new Box3Helper( this.boundingBox);
-    //this.parent.add(helper);
+    update(timeStamp) {
+       TWEEN.update();
+       this.boundingBox = new Box3().setFromObject(this);
 
-}
+   }
 
 
 }

@@ -52,7 +52,7 @@ class PauseMenu {
 
 		// button
 		const button = document.createElement("button");
-		button.id = "btn";
+		button.id = "pauseButton";
 		button.onclick = function startPayback() {
 
 			// time at which unpause button is clicked

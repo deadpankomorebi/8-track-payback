@@ -23,7 +23,6 @@ class Violin extends Group {
             this.add(gltf.scene);
             vln.boundingBox = new Box3().setFromObject(gltf.scene);
             vln.moving = false;
-            console.log("vla");
 
             // Add self to parent's update list
         vln.parent.addToUpdateList(vln);
@@ -39,28 +38,25 @@ class Violin extends Group {
     moveForward(callback) {
         var currentZ = this.position.z;
 
-    	const approach = new TWEEN.Tween(this.position)
-      .to({ z: this.position.z - 60}, 4000);
+        const approach = new TWEEN.Tween(this.position)
+        .to({ z: this.position.z - 60}, 4000);
 
-approach.onComplete( () => {
-        this.visible = false;
-        this.position.z = currentZ;
-        console.log("Move Forward is complete");
-        console.log(this);
-        callback();
-    });
+        approach.onComplete( () => {
+            this.visible = false;
+            this.position.z = currentZ;
 
-      approach.start();
+            callback();
+        });
+
+        approach.start();
 
 
-  }
+    }
 
-  update(timeStamp) {
-   TWEEN.update();
-   this.boundingBox = new Box3().setFromObject(this);
-       //var helper = new Box3Helper( this.boundingBox);
-    //this.parent.add(helper);
-}
+    update(timeStamp) {
+     TWEEN.update();
+     this.boundingBox = new Box3().setFromObject(this);
+ }
 
 
 }
