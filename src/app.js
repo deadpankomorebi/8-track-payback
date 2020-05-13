@@ -6,12 +6,12 @@
  * handles window resizes.
  *
  */
-import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Vector3 } from "three";
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
-import { RectangularTubeScene } from 'scenes';
-import { CamListener } from 'camListener';
-import { StartMenu, LoseMenu, PauseMenu, WinMenu } from 'menus';
+import { TWEEN } from "three/examples/jsm/libs/tween.module.min.js";
+import { RectangularTubeScene } from "scenes";
+import { CamListener } from "camListener";
+import { StartMenu, LoseMenu, PauseMenu, WinMenu } from "menus";
 
 // Initialize core ThreeJS components
 const camera = new CamListener();
@@ -27,9 +27,9 @@ camera.getWorldDirection(camDirection);
 // Set up renderer, canvas, and minor CSS adjustments
 renderer.setPixelRatio(window.devicePixelRatio);
 const canvas = renderer.domElement;
-canvas.style.display = 'block'; // Removes padding below canvas
+canvas.style.display = "block"; // Removes padding below canvas
 document.body.style.margin = 0; // Removes margin around page
-document.body.style.overflow = 'hidden'; // Fix scrolling
+document.body.style.overflow = "hidden"; // Fix scrolling
 document.body.appendChild(canvas);
 
 // Set up controls
@@ -46,73 +46,73 @@ var last;
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-    //controls.update();
-    renderer.render(scene, camera);
+  //controls.update();
+  renderer.render(scene, camera);
 
-    if (scene.state.gamePlay) {
-        scene.update && scene.update(timeStamp);
+  if (scene.state.gamePlay) {
+    scene.update && scene.update(timeStamp);
 
-        //camera.translateX(2);
-        //camera.position.add(camDirection.clone().multiplyScalar(2));
-        //debugger;
-        if (scene.state.loseEnd) {
-            //scene.dispose();
-            if (!scene.state.loseMenuCreated) {
-                const loseMenu = new LoseMenu(scene);
-                scene.state.gamePlay = false;
-            }
-        }
-
-        if (scene.state.winRestart) {
-            if (!scene.state.winMenuCreated) {
-                const winMenu = new WinMenu(scene);
-            }
-        }
+    //camera.translateX(2);
+    //camera.position.add(camDirection.clone().multiplyScalar(2));
+    //debugger;
+    if (scene.state.loseEnd) {
+      //scene.dispose();
+      if (!scene.state.loseMenuCreated) {
+        const loseMenu = new LoseMenu(scene);
+        scene.state.gamePlay = false;
+      }
     }
-    window.requestAnimationFrame(onAnimationFrameHandler);
+
+    if (scene.state.winRestart) {
+      if (!scene.state.winMenuCreated) {
+        const winMenu = new WinMenu(scene);
+      }
+    }
+  }
+  window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
 
 // Resize Handler
 const windowResizeHandler = () => {
-    const { innerHeight, innerWidth } = window;
-    renderer.setSize(innerWidth, innerHeight);
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
+  const { innerHeight, innerWidth } = window;
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
 };
 windowResizeHandler();
-window.addEventListener('resize', windowResizeHandler, false);
+window.addEventListener("resize", windowResizeHandler, false);
 
 // ME - May 11 edit
 function startGame(scene) {
-    if (scene.state.startBegin) {
-        const startMenu = new StartMenu(scene); // ME - May 8 edit
-    }
+  if (scene.state.startBegin) {
+    const startMenu = new StartMenu(scene); // ME - May 8 edit
+  }
 }
 
 // Pause Menu in progress
 function takingCareOfKeypress(event) {
-    if (event.target.tagName === 'INPUT') {
+  if (event.target.tagName === "INPUT") {
+    return;
+  }
+
+  const keyMap = {
+    Escape: null,
+  };
+
+  if (!keyMap.hasOwnProperty(event.key)) {
+    return;
+  } else {
+    if (event.key == "Escape") {
+      if (scene.state.pauseMenuCreated) {
+        var pauseButton = this.document.getElementById("pauseButton");
+        pauseButton.onclick();
         return;
+      }
+
+      new PauseMenu(scene);
+      scene.state.pauseMenuCreated = true;
     }
-
-    const keyMap = {
-        Escape: null,
-    };
-
-    if (!keyMap.hasOwnProperty(event.key)) {
-        return;
-    } else {
-        if (event.key == 'Escape') {
-            if (scene.state.pauseMenuCreated) {
-                var pauseButton = this.document.getElementById('pauseButton');
-                pauseButton.onclick();
-                return;
-            }
-
-            new PauseMenu(scene);
-            scene.state.pauseMenuCreated = true;
-        }
-    }
+  }
 }
-window.addEventListener('keydown', takingCareOfKeypress);
+window.addEventListener("keydown", takingCareOfKeypress);
