@@ -1,7 +1,16 @@
 import { SelectMenu } from 'menus';
+import { ImageLoader } from 'three' 
+import BOOMBOX from './Boombox.gif';
 
 class StartMenu {
 	constructor(scene) {
+
+		// load gif
+		const loader = new ImageLoader();
+		loader.load(BOOMBOX, (gif) => {
+
+			document.body.style.backgroundImage = "url("+gif.src+")";
+		});
 
 		this.name = 'startMenu';
 
@@ -16,12 +25,9 @@ class StartMenu {
 		// hide all other elements in body
 		var length = document.body.children.length;
 		for (let i = 0; i < length; i++) {
-			document.body.children[i].style.opacity = 0;
-		}
+			document.body.children[i].style.opacity = 0; }
 
-		// add boombox gif as background
-		document.body.style.backgroundImage = "url(/src/components/menus/Boombox.gif)";
-
+		// create title screen element
 		const titleScreen = document.createElement("div");
 		titleScreen.className = "titleScreen";
 		document.body.appendChild(titleScreen);
