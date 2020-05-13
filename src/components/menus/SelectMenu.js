@@ -1,5 +1,18 @@
+import { ImageLoader } from 'three' 
+import BOOMBOX from './BoomSmall.jpg'
+
 class SelectMenu {
 	constructor(scene) {
+
+		// load gif
+		const loader = new ImageLoader();
+		loader.load(BOOMBOX, (jpg) => {
+
+			document.body.style.backgroundImage = "url("+jpg.src+")";
+			document.body.style.backgroundPosition = "center center";
+			document.body.style.backgroundSize = "37.5%";
+
+		});
 
 		this.name = 'selectMenu';
 
@@ -126,6 +139,9 @@ class SelectMenu {
 			scene.state.player.position.set(0,0,0);
 			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
+			document.body.style.backgroundImage = null;
+			document.body.style.backgroundPosition = null;
+			document.body.style.backgroundSize = null;
 
 			setTimeout(() => {
 				scene.state.gamePlay = true;
