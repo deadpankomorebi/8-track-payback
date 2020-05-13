@@ -1,6 +1,7 @@
 import { SelectMenu } from 'menus';
 import { ImageLoader } from 'three' 
 import BOOMBOX from './Boombox.gif';
+//import CSS from './styles.css';
 
 class StartMenu {
 	constructor(scene) {
@@ -18,7 +19,7 @@ class StartMenu {
 		const link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.type = "text/css";
-		link.href = "/src/components/menus/styles.css";
+		//link.href = "/src/components/menus/styles.css";
 		link.media = "screen";
 		document.head.appendChild(link);
 

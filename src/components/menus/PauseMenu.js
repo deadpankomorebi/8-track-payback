@@ -18,7 +18,7 @@ class PauseMenu {
 		const link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.type = "text/css";
-		link.href = "/src/components/menus/styles.css";
+		//link.href = "/src/components/menus/styles.css";
 		link.media = "screen";
 		document.head.appendChild(link);
 
