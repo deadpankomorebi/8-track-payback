@@ -17,7 +17,7 @@ class RectangularTubeScene extends Scene {
         // Init state
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
-            rotationSpeed: 0,
+            //rotationSpeed: 0,
             updateList: [],
             music: null,
             play: this.play.bind(this),
@@ -76,7 +76,7 @@ class RectangularTubeScene extends Scene {
         this.addObstacles();
 
         // Populate GUI
-        this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
+        //this.state.gui.add(this.state, 'rotationSpeed', -5, 5);
         this.state.gui.add(this.state, 'play');
         this.state.gui.add(this.state, 'pause');
 //if (this.state.musicSelect === 3) {
@@ -276,7 +276,7 @@ class RectangularTubeScene extends Scene {
 
     update(timeStamp) {
         const { rotationSpeed, updateList } = this.state;
-        this.rotation.y = (rotationSpeed * timeStamp) / 10000;
+        //this.rotation.y = (rotationSpeed * timeStamp) / 10000;
 
         // get the average frequency of the sound
         var data = this.state.analyser.getFrequencyData();

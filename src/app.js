@@ -19,7 +19,7 @@ const scene = new RectangularTubeScene(camera.getAudioListener(), camera);
 const renderer = new WebGLRenderer({ antialias: true });
 
 // Set up camera
-camera.position.set(0, 2, -10);
+camera.position.set(0, 2, -12);
 camera.lookAt(new Vector3(0, 0, 100));
 let camDirection = new Vector3();
 camera.getWorldDirection(camDirection);
@@ -33,12 +33,12 @@ document.body.style.overflow = 'hidden'; // Fix scrolling
 document.body.appendChild(canvas);
 
 // Set up controls
-const controls = new OrbitControls(camera, canvas);
+/*const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.enablePan = false;
 controls.minDistance = 4;
 controls.maxDistance = 16;
-controls.update();
+controls.update();*/
 
   // ME May 11; start state
 startGame(scene);
@@ -47,7 +47,7 @@ var last;
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
 
-  controls.update();
+  //controls.update();
   renderer.render(scene, camera);
 
   if (scene.state.gamePlay) {
