@@ -37,18 +37,27 @@ class Headphones extends Group {
             var minY = this.boundingBox.min.y;
             var diff;
 
-            if (this.position.y > 3.5) {
-                this.position.y = 3.5;
+            if (this.position.y > 3.0) {
+                this.position.y = 3.0;
             }
             if (this.position.y < -1.4) {
                 this.position.y = -1.4;
             }
+						if (this.position.y < -1.0 || this.position.y > 1.0) {
+							if (this.position.x > 1.0) {
+	                this.position.x = 1.0
+	            }
+	            if (this.position.x < -1.0) {
+	                this.position.x = -1.0;
+	            }
+						} else {
             if (this.position.x > 2.0) {
                 this.position.x = 2.0
             }
             if (this.position.x < -2.0) {
                 this.position.x = -2.0;
             }
+					}
         }
     }
 
@@ -76,6 +85,7 @@ else {
   let offset = keyMap[event.key];
   this.position.add(offset.multiplyScalar(scale));
   this.checkTubeCollisions();
+	//console.log(this.position);
 }
 }
 

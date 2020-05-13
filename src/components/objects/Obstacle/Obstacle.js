@@ -22,11 +22,11 @@ class Obstacle extends Group {
     };
 
     // Create a box
-    var geometry = new BoxBufferGeometry( 1, 1, 1 );
+    var geometry = new BoxBufferGeometry( 1, 1.5, 1 );
     geometry.computeBoundingBox();
 
     let baseGeometry = geometry;
-    let bigGeometry = new BoxBufferGeometry( this.state.frequencyNum / this.state.scaleFactor, 1, 1 );
+    let bigGeometry = new BoxBufferGeometry( this.state.frequencyNum / this.state.scaleFactor, 1.5, 1 );
     let attribute = bigGeometry.getAttribute('position');
     let name = 'target';
     attribute.name = name;

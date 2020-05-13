@@ -8,7 +8,7 @@ class RectangularTube extends Group {
         this.name = 'rectangular tube';
 
         var v1 = new Vector3(0, 0, -10);
-        var v2 = new Vector3(0, 0, 150);
+        var v2 = new Vector3(0, 0, 80);
         var path = new LineCurve3 (v1, v2);
         var geometry = new TubeGeometry(
                             path,              // Curve
