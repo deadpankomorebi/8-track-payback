@@ -12,6 +12,7 @@ class PauseMenu {
 		scene.state.pauseMenuCreated = true;
 		scene.state.paused = true;
 		scene.state.gamePlay = false;
+		scene.state.music.pause();
 
 		// link to stylesheet
 		const link = document.createElement("link");
@@ -71,11 +72,12 @@ class PauseMenu {
 			scene.state.paused = false;
 			scene.state.gamePlay = true;
 			scene.state.pauseMenuCreated = false;
+			scene.state.music.play();
 
 			//setTimeout(() => {
 			//	scene.state.gamePlay = true;
 			//}, 1000); // wait 1000 miliseconds before beginning game
-			
+
 
 		}
 		button.className = "pauseButton";
