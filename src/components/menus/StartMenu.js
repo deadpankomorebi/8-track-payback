@@ -64,7 +64,7 @@ class StartMenu {
 		const instructions5 = document.createElement("p");
 		instructions5.id = "directions5";
 		instructions5.innerText = "touch an instrument: lose immediately";
-		
+
 		instruct.appendChild(instructions1);
 		instruct.appendChild(instructions2);
 		instruct.appendChild(instructions3);
@@ -95,7 +95,7 @@ class StartMenu {
 			}, 1000); // wait 1000 miliseconds before beginning game*/
 			const selectMenu = new SelectMenu(scene);
 
-			remove boombox background
+			//remove boombox background
 			document.body.style.backgroundImage = null;
 
 

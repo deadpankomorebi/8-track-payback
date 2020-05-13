@@ -1,5 +1,5 @@
 //import * as Dat from 'dat.gui';
-import { Scene, Color } from 'three';
+import { Scene, Color, TextureLoader, RepeatWrapping } from 'three';
 import { Flower, Land, RectangularTube, Headphones, Obstacle, Boombox } from 'objects';
 import { AcousticGuitar, Piano, Violin } from 'instruments';
 import { BasicLights } from 'lights';
@@ -7,6 +7,7 @@ import { Audio, AudioListener, AudioLoader, AudioAnalyser } from 'three';
 import MUSIC1 from './You Gotta Be.mp3';
 import MUSIC2 from './Kirby.mp3';
 import MUSIC3 from './Offenbach.mp3';
+import BACKGROUND from './stars.jpg';
 import { Vector3 } from 'three';
 
 class RectangularTubeScene extends Scene {
@@ -27,7 +28,7 @@ class RectangularTubeScene extends Scene {
       startBegin: true,
       gamePlay: false,
       loseEnd: false,
-      currentSpeed: 0.1,
+      currentSpeed: 0.15,
       camera: camera,
       //test: 20,
       tube: null,
@@ -44,7 +45,12 @@ class RectangularTubeScene extends Scene {
     };
 
     // Set background to a nice color
-    this.background = new Color(0x000000);
+    let bgTexture =  new TextureLoader().load( BACKGROUND );
+    bgTexture.wrapS = RepeatWrapping;
+bgTexture.wrapT = RepeatWrapping;
+bgTexture.repeat.set( 4, 4 );
+    //this.background = new Color(0x000000);
+    this.background = bgTexture;
 
     // Add meshes to scene
     const land = new Land();
