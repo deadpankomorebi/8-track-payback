@@ -56,7 +56,7 @@ class WinMenu {
 			// remove start menu children
 			document.body.removeChild(title);
 			document.body.removeChild(names);
-			document.body.removeChild(instructions);
+			document.body.removeChild(congrats);
 			document.body.removeChild(button);
 
 			setTimeout(() => {
