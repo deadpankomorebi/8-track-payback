@@ -95,7 +95,7 @@ class StartMenu {
 			}, 1000); // wait 1000 miliseconds before beginning game*/
 			const selectMenu = new SelectMenu(scene);
 
-			remove boombox background
+			//remove boombox background
 			document.body.style.backgroundImage = null;
 
 
