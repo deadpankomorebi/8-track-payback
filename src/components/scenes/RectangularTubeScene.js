@@ -55,7 +55,7 @@ class RectangularTubeScene extends Scene {
         const land = new Land();
         const lights = new BasicLights();
 
-        const boombox = new Boombox();
+        const boombox = new Boombox(this);
 
         // add instruments to scene
         const acoustic = new AcousticGuitar();
@@ -99,7 +99,7 @@ class RectangularTubeScene extends Scene {
 
     addMusic() {
         let sound = new Audio(this.state.listener);
-      
+
         // load a sound and set it as the Audio object's buffer
         var audioLoader = new AudioLoader();
 
