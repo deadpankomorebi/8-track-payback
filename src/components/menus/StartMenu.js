@@ -1,7 +1,7 @@
 import { SelectMenu } from 'menus';
 import { ImageLoader } from 'three' 
 import BOOMBOX from './Boombox.gif';
-//import CSS from './styles.css';
+import CSS from './styles.css';
 
 class StartMenu {
 	constructor(scene) {

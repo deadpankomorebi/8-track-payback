@@ -14,10 +14,10 @@ module.exports = {
     devtool: 'source-map',
     module: {
         rules: [
-           /* {
+            {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader', 'handlebars-loader', 'extract-loader',],
-            }, */
+                use: ['style-loader', 'css-loader'],
+            }, 
             {
                 test: /\.js$/,
                 use: 'babel-loader',
