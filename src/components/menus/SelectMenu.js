@@ -1,5 +1,5 @@
 import { ImageLoader } from 'three' 
-import BOOMBOX from './BoomSmall.jpg'
+import BOOMBOX from './Boombox.jpg'
 
 class SelectMenu {
 	constructor(scene) {
@@ -9,8 +9,9 @@ class SelectMenu {
 		loader.load(BOOMBOX, (jpg) => {
 
 			document.body.style.backgroundImage = "url("+jpg.src+")";
-			document.body.style.backgroundPosition = "center center";
-			document.body.style.backgroundSize = "37.5%";
+			document.body.style.backgroundPosition = "bottom center";
+			document.body.style.backgroundSize = "50%";
+			document.body.style.backgroundRepeat = "no-repeat";
 
 		});
 
@@ -74,6 +75,11 @@ class SelectMenu {
 			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
 
+			document.body.style.backgroundImage = null;
+			document.body.style.backgroundPosition = null;
+			document.body.style.backgroundSize = null;
+			document.body.style.backgroundRepeat = null;
+
 			setTimeout(() => {
 				scene.state.gamePlay = true;
 			}, 1000); // wait 1000 miliseconds before beginning game
@@ -107,6 +113,11 @@ class SelectMenu {
 			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
 
+			document.body.style.backgroundImage = null;
+			document.body.style.backgroundPosition = null;
+			document.body.style.backgroundSize = null;
+			document.body.style.backgroundRepeat = null;
+
 			setTimeout(() => {
 				scene.state.gamePlay = true;
 			}, 1000); // wait 1000 miliseconds before beginning game
@@ -139,9 +150,11 @@ class SelectMenu {
 			scene.state.player.position.set(0,0,0);
 			scene.state.lifeText.innerText = "life: " + scene.state.life;
 			scene.addMusic();
+			
 			document.body.style.backgroundImage = null;
 			document.body.style.backgroundPosition = null;
 			document.body.style.backgroundSize = null;
+			document.body.style.backgroundRepeat = null;
 
 			setTimeout(() => {
 				scene.state.gamePlay = true;

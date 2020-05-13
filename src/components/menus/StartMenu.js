@@ -11,6 +11,7 @@ class StartMenu {
 		loader.load(BOOMBOX, (gif) => {
 
 			document.body.style.backgroundImage = "url("+gif.src+")";
+			document.body.style.backgroundSize = "50%";
 		});
 
 		this.name = 'startMenu';
