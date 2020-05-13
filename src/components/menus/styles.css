@@ -184,6 +184,14 @@
 	color: rgb(187, 255, 74);
 }
 
-body {
+.titleScreen {
 	background-color: #7ec0ee;
+	background-image: url("Boombox.gif");
+
+}
+
+body {
+	background-color: #7ec0ee; 
+	
+
 }

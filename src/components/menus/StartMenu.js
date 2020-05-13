@@ -19,24 +19,31 @@ class StartMenu {
 			document.body.children[i].style.opacity = 0;
 		}
 
+		// add boombox gif as background
+		document.body.style.backgroundImage = "url(/src/components/menus/Boombox.gif)";
+
+		const titleScreen = document.createElement("div");
+		titleScreen.className = "titleScreen";
+		document.body.appendChild(titleScreen);
+
 		// Creation of title
 		const title = document.createElement("H1");
 		title.id = "menu";
 		title.className = "title";
 		title.innerText = "8-Track Payback";
-		document.body.appendChild(title);
+		titleScreen.appendChild(title);
 
 		// Names
 		const names = document.createElement("H2");
 		names.id = "name";
 		names.className = "author";
 		names.innerText = "by Yunzi Shi & Milan Eldridge";
-		document.body.appendChild(names);
+		titleScreen.appendChild(names);
 
 		// instructions
 		const instruct = document.createElement("div");
 		instruct.className = "command";
-		document.body.appendChild(instruct);
+		titleScreen.appendChild(instruct);
 
 		const instructions1 = document.createElement("p");
 		instructions1.id = "directions1";
@@ -74,10 +81,11 @@ class StartMenu {
 			}
 
 			// remove start menu children
-			document.body.removeChild(title);
+			/*document.body.removeChild(title);
 			document.body.removeChild(names);
 			document.body.removeChild(instruct);
-			document.body.removeChild(button);
+			document.body.removeChild(button); */
+			document.body.removeChild(titleScreen)
 
 			// begin game after short delay
 			/*scene.state.startBegin = false;
@@ -87,12 +95,15 @@ class StartMenu {
 			}, 1000); // wait 1000 miliseconds before beginning game*/
 			const selectMenu = new SelectMenu(scene);
 
+			remove boombox background
+			document.body.style.backgroundImage = null;
+
 
 		}
 		button.className = "startButton";
 		button.type = "button";
 		button.innerText = "CLICK TO BEGIN THE ATTACK OF THE 8-TRACK";
-		document.body.appendChild(button);
+		titleScreen.appendChild(button);
 
 	}
 }
