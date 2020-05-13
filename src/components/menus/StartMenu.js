@@ -49,10 +49,20 @@ class StartMenu {
 		const instructions3 = document.createElement("p");
 		instructions3.id = "directions3";
 		instructions3.innerText = "press play and avoid all obstacles";
+
+		const instructions4 = document.createElement("p");
+		instructions4.id = "directions4";
+		instructions4.innerText = "touch a teal obstacle: lose a life";
+
+		const instructions5 = document.createElement("p");
+		instructions5.id = "directions5";
+		instructions5.innerText = "touch an instrument: lose immediately";
 		
 		instruct.appendChild(instructions1);
 		instruct.appendChild(instructions2);
 		instruct.appendChild(instructions3);
+		instruct.appendChild(instructions4);
+		instruct.appendChild(instructions5);
 
 		// button
 		const button = document.createElement("button");

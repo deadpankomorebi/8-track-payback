@@ -20,12 +20,12 @@
 
 .command {
 	position: absolute;
-	top: 125px; 
+	top: 140px; 
 	padding-top: 100px;
 	width: 100%;
 	text-align: center;
 	font-family: trebuchet ms;
-	font-size: 7vh;
+	font-size: 4vh;
 	color: rgb(187, 255, 74);
 }
 
