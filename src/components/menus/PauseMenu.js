@@ -9,7 +9,7 @@ class PauseMenu {
 		}
 
 		// put in pause state
-		scene.state.pauseMenuCreated = true;
+		//scene.state.pauseMenuCreated = true;
 		scene.state.paused = true;
 		scene.state.gamePlay = false;
 		scene.state.music.pause();

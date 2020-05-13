@@ -106,7 +106,16 @@ const keyMap = {
 if (!keyMap.hasOwnProperty(event.key)) { return; }
 else {
   if (event.key == "Escape") {
+    if (scene.state.pauseMenuCreated) {
+      
+      var pauseButton = this.document.getElementById("pauseButton");
+      pauseButton.onclick();
+      return;
+    }
+
     new PauseMenu(scene);
+    scene.state.pauseMenuCreated = true;
+
   }
 }
 }
