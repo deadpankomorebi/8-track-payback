@@ -121,8 +121,8 @@
 .button1 {
 	position: absolute;
 	top: 250px;
-	left: 37.5%;
-	width: 25%;
+	left: 40%;
+	width: 20%;
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 4vh;
@@ -132,8 +132,8 @@
 .winButton {
 	position: absolute;
 	top: 500px;
-	left: 37.5%;
-	width: 25%;
+	left: 42.5%;
+	width: 15%;
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 4vh;
@@ -143,8 +143,8 @@
 .button2 {
 	position: absolute;
 	top: 350px;
-	left: 37.5%;
-	width: 25%;
+	left: 40%;
+	width: 20%;
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 4vh;
@@ -165,8 +165,8 @@
 .button3 {
 	position: absolute;
 	top: 450px;
-	left: 37.5%;
-	width: 25%;
+	left: 40%;
+	width: 20%;
 	text-align: center;
 	font-family: trebuchet ms;
 	font-size: 4vh;
