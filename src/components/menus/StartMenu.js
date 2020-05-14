@@ -8,6 +8,8 @@ class StartMenu {
     // load gif
     const loader = new ImageLoader();
     loader.load(BOOMBOX, (gif) => {
+
+      // set gif as background of menu
       document.body.style.backgroundImage = "url(" + gif.src + ")";
       document.body.style.backgroundSize = "50%";
     });
@@ -18,7 +20,6 @@ class StartMenu {
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
-    //link.href = "/src/components/menus/styles.css";
     link.media = "screen";
     document.head.appendChild(link);
 
@@ -58,11 +59,11 @@ class StartMenu {
 
     const instructions2 = document.createElement("p");
     instructions2.id = "directions2";
-    instructions2.innerText = "escape to pause";
+    instructions2.innerText = "escape to pause/unpause";
 
     const instructions3 = document.createElement("p");
     instructions3.id = "directions3";
-    instructions3.innerText = "press play and avoid all obstacles";
+    instructions3.innerText = "avoid all obstacles";
 
     const instructions4 = document.createElement("p");
     instructions4.id = "directions4";
@@ -82,28 +83,22 @@ class StartMenu {
     const button = document.createElement("button");
     button.id = "btn";
     button.onclick = function startPayback() {
+
+      // un-hide previously hidden body elements
       for (let i = 0; i < length; i++) {
         document.body.children[i].style.opacity = 1;
       }
 
-      // remove start menu children
-      /*document.body.removeChild(title);
-			document.body.removeChild(names);
-			document.body.removeChild(instruct);
-			document.body.removeChild(button); */
+      // remove title screen after button is clicked
       document.body.removeChild(titleScreen);
 
-      // begin game after short delay
-      /*scene.state.startBegin = false;
-
-			setTimeout(() => {
-				scene.state.gamePlay = true;
-			}, 1000); // wait 1000 miliseconds before beginning game*/
+      // take player to song selection menu after button is clicked
       const selectMenu = new SelectMenu(scene);
 
       //remove boombox background
       document.body.style.backgroundImage = null;
     };
+    
     button.className = "startButton";
     button.type = "button";
     button.innerText = "CLICK TO BEGIN THE ATTACK OF THE 8-TRACK";

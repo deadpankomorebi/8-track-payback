@@ -4,13 +4,13 @@ class LoseMenu {
   constructor(scene) {
     this.name = "loseMenu";
 
+    // set state to reflect creation of lose menu
     scene.state.loseMenuCreated = true;
 
     // link to stylesheet
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
-    //link.href = "/src/components/menus/styles.css";
     link.media = "screen";
     document.head.appendChild(link);
 
@@ -46,22 +46,28 @@ class LoseMenu {
     const button = document.createElement("button");
     button.id = "btn";
     button.onclick = function startPayback() {
+
+      // increase opacity of previously decreased opacity elements
       for (let i = 0; i < length; i++) {
         document.body.children[i].style.opacity = 1;
       }
 
-      // remove start menu children
+      // remove lose menu children
       document.body.removeChild(wisecrack);
       document.body.removeChild(oh);
       document.body.removeChild(jack);
       document.body.removeChild(button);
 
+      // set appropriate states in scene
       scene.state.loseEnd = false;
       scene.state.loseMenuCreated = false;
       scene.state.life = 3;
+
+      // take the player to song selection menu after button is clicked
       const selectMenu = new SelectMenu(scene);
     };
-    button.className = "button";
+
+    button.className = "loseButton";
     button.type = "button";
     button.id = "returnToGame";
     button.innerText = "CLICK TO GET BACK TO THE ATTACK OF THE 8-TRACK";

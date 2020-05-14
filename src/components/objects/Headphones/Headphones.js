@@ -14,27 +14,31 @@ class Headphones extends Group {
     this.name = "headphones";
 
     var phones = this;
-
+    
+    // load headphones gltf model
     loader.load(MODEL, (gltf) => {
+
+      // set initial position and size
       gltf.scene.position.set(0, 0, 0);
       gltf.scene.scale.multiplyScalar(0.1);
 
+      // add headphones
       this.add(gltf.scene);
+
+      // create bounding box for headphones
       phones.boundingBox = new Box3().setFromObject(gltf.scene);
 
+      // add headphones to parent self update list
       phones.parent.addToUpdateList(phones);
     });
 
+    // listen for keypresses
     window.addEventListener("keydown", this.handleKeypressEvents.bind(phones));
   }
 
+  // set boundaries for headphone movement
   checkTubeCollisions() {
     if (this.boundingBox) {
-      var maxX = this.boundingBox.max.x;
-      var maxY = this.boundingBox.max.y;
-      var minX = this.boundingBox.min.x;
-      var minY = this.boundingBox.min.y;
-      var diff;
 
       if (this.position.y > 3.0) {
         this.position.y = 3.0;
@@ -66,7 +70,7 @@ class Headphones extends Group {
       return;
     }
 
-    // The vectors to which each key code in this handler maps. (Change these if you like)
+    // The vectors to which each key code in this handler maps
     const keyMap = {
       ArrowUp: new Vector3(0, 1, 0),
       ArrowDown: new Vector3(0, -1, 0),
@@ -83,14 +87,16 @@ class Headphones extends Group {
     // Check which key was pressed. If it wasn't a triggering key, do nothing.
     if (!keyMap.hasOwnProperty(event.key)) {
       return;
-    } else {
+    } 
+    else {
+      // move headphones in appropriate direction and ensure inside boundaries
       let offset = keyMap[event.key];
       this.position.add(offset.multiplyScalar(scale));
       this.checkTubeCollisions();
-      //console.log(this.position);
     }
   }
 
+  // update bounding box position
   update(timeStamp) {
     this.boundingBox = new Box3().setFromObject(this);
   }

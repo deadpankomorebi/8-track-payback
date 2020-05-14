@@ -13,20 +13,29 @@ class Boombox extends Group {
 
     this.name = "boombox";
 
+    // load boombox gltf model
     loader.load(MODEL, (gltf) => {
+
+      // set initial position, orientation, and size
       gltf.scene.position.set(0, -2.5, -1);
       gltf.scene.rotation.y = Math.PI;
       gltf.scene.scale.multiplyScalar(0.2);
+
+      // add boombox
       this.add(gltf.scene);
     });
 
+    // set boombox initial state
     this.state = {
       twirl: 0,
       count: 0,
     };
+
+    // add to parent self update list
     parent.addToUpdateList(this);
   }
 
+  // add jumping movement to boombox
   jump() {
     console.log(this.position.y);
     const jumpUp = new TWEEN.Tween(this.position)
@@ -41,6 +50,7 @@ class Boombox extends Group {
     jumpUp.start();
   }
 
+  // update Tween and state count
   update() {
     if (this.state.count === 40) {
       this.state.count = 0;

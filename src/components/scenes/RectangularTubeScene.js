@@ -51,10 +51,9 @@ class RectangularTubeScene extends Scene {
     this.background = bgTexture;
 
     // Add meshes to scene
-    const land = new Land();
     const lights = new BasicLights();
-
     const boombox = new Boombox(this);
+    const headphones = new Headphones(this);
 
     // add instruments to scene
     const acoustic = new AcousticGuitar();
@@ -63,8 +62,10 @@ class RectangularTubeScene extends Scene {
 
     this.add(acoustic, piano, violin);
 
+    // set random position for instruments
     var instruments = [acoustic, piano, violin];
     this.instruments = instruments;
+
     for (let i = 0; i < instruments.length; i++) {
       instruments[i].position.x = this.generateRandom(
         instruments[i].minX,
@@ -77,10 +78,7 @@ class RectangularTubeScene extends Scene {
       instruments[i].visible = false;
     }
 
-    const headphones = new Headphones(this);
-
     this.state.player = headphones;
-    //this.add(land, lights, rectangularTube, headphones);
     this.add(lights, headphones, boombox);
     this.addTube();
     this.addObstacles();
@@ -96,6 +94,7 @@ class RectangularTubeScene extends Scene {
     this.state.lifeText = life;
   }
 
+  // add global music to scene
   addMusic() {
     let sound = new Audio(this.state.listener);
 
@@ -103,7 +102,8 @@ class RectangularTubeScene extends Scene {
     var audioLoader = new AudioLoader();
 
     this.audioLoader = audioLoader;
-    //console.log(this.state.musicSelect);
+
+    // load song 2
     if (this.state.musicSelect === 1) {
       audioLoader.load(MUSIC1, function (buffer) {
         sound.setBuffer(buffer);
@@ -112,6 +112,8 @@ class RectangularTubeScene extends Scene {
         sound.play();
       });
     }
+
+    // load song 2
     if (this.state.musicSelect === 2) {
       audioLoader.load(MUSIC2, function (buffer) {
         sound.setBuffer(buffer);
@@ -120,6 +122,8 @@ class RectangularTubeScene extends Scene {
         sound.play();
       });
     }
+
+    // load song 3
     if (this.state.musicSelect === 3) {
       audioLoader.load(MUSIC3, function (buffer) {
         sound.setBuffer(buffer);
@@ -128,42 +132,54 @@ class RectangularTubeScene extends Scene {
         sound.play();
       });
     }
+
     this.state.music = sound;
+
     // Analyze frequency
     var analyser = new AudioAnalyser(this.state.music, 64);
     this.state.analyser = analyser;
 
+    // show win menu after song ends
     this.state.music.onEnded = () => {
       this.state.winRestart = true;
-      console.log("this song has ended");
     };
   }
 
+  // generate random value in between min and max
   generateRandom(min, max) {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
     return Math.random() * (max - min) + min;
   }
 
+  // choose 
   randomIndex(length) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
     return Math.floor(Math.random() * Math.floor(length));
   }
 
+  // reset position of instrument
   resetPosition(instrument) {
+
+    // set x value to random value within range
     instrument.position.x = this.generateRandom(
       instrument.minX,
       instrument.maxX
     );
+
+    // set y value to random value within range
     instrument.position.y = this.generateRandom(
       instrument.minY,
       instrument.maxY
     );
   }
 
+  // choose random instrument
   chooseInstrument(instrumentsArray) {
     var index = this.randomIndex(instrumentsArray.length);
     return instrumentsArray[index];
   }
 
+  // determine if instrument has collided with instrument
   checkInstrumentCollision(instrument) {
     if (instrument.boundingBox) {
       const iBound = instrument.boundingBox;
@@ -171,6 +187,7 @@ class RectangularTubeScene extends Scene {
       iBound.max.z += 2;
       const hBound = this.state.player.boundingBox;
 
+      // player loses if avatar bounding box intersects instrument bounding box
       if (iBound.intersectsBox(hBound)) {
         this.state.life = 0;
         this.state.lifeText.innerText = "life: " + this.state.life;
@@ -180,13 +197,21 @@ class RectangularTubeScene extends Scene {
     }
   }
 
+  // bring instrument forward
   loom(instrument) {
+
+    //ensure bounding box has been created
     if (instrument.boundingBox) {
-      //ensure bounding box has been created
+      
+      // make instrument visible
       instrument.visible = true;
-      this.checkInstrumentCollision(instrument); // check if player intersects instrument
+
+      // check if player intersects instrument
+      this.checkInstrumentCollision(instrument); 
+
+      //ensure instrument is not already moving
       if (instrument.moving == false) {
-        //ensure instrument is not already moving
+        
 
         instrument.moveForward(() => {
           instrument.moving = false;
@@ -196,20 +221,26 @@ class RectangularTubeScene extends Scene {
     }
   }
 
+  // check if all instruments are not moving
   allStopped() {
-    var stoppedCount = 0;
+
+    var stoppedCount = 0; // number of instruments not moving
     var instruments = this.instruments;
     var total = instruments.length;
+
+    //ensure all bounding boxes have been created
     if (instruments[total - 1].boundingBox) {
-      //ensure all bounding boxes have been created
+      
+      // count instruments that are not moving
       for (let i = 0; i < total; i++) {
         if (instruments[i].moving === false) {
           stoppedCount++;
         }
       }
 
-      // if all instruments are stopped, execute
+      // if all instruments are stopped, execute 
       if (stoppedCount === total) {
+
         // choose instrument to move forward
         var instrument = this.chooseInstrument(instruments);
 
@@ -224,18 +255,22 @@ class RectangularTubeScene extends Scene {
     return instrument;
   }
 
+  // add object to update list
   addToUpdateList(object) {
     this.state.updateList.push(object);
   }
 
+  // play music
   play() {
     this.state.music.play();
   }
 
+  // pause music
   pause() {
     this.state.music.pause();
   }
 
+  // add tube to scene
   addTube() {
     let depth = this.state.player.position.z;
     const rectangularTube = new RectangularTube(this, depth);
@@ -243,6 +278,7 @@ class RectangularTubeScene extends Scene {
     this.add(rectangularTube);
   }
 
+  // add obstacles to scene
   addObstacles() {
     for (let y = 0; y < 4; y += 2) {
       for (let z = 20; z > -4; z -= 2) {
@@ -257,6 +293,7 @@ class RectangularTubeScene extends Scene {
     }
   }
 
+  // update necessary scene components
   update(timeStamp) {
     const { rotationSpeed, updateList } = this.state;
 
@@ -270,12 +307,15 @@ class RectangularTubeScene extends Scene {
       i++;
     }
 
+    // check if all instruments are not moving
     this.allStopped();
 
+    // check if avatar has collided with instruments
     for (let i = 0; i < this.instruments.length; i++) {
       this.checkInstrumentCollision(this.instruments[i]);
     }
 
+    // if avator collides with obstacle, update lives
     if (this.state.obstacleCollision) {
       this.state.life -= 1;
       this.state.lifeText.innerText = "life: " + this.state.life;
@@ -283,7 +323,10 @@ class RectangularTubeScene extends Scene {
       this.state.obstacleCollision = false;
     }
 
+    // player loses if lives reach 0
     if (this.state.life === 0) this.state.loseEnd = true;
+
+    // stop music and reset lives if player loses
     if (this.state.loseEnd) {
       if (this.state.music.isPlaying) {
         this.state.music.stop();

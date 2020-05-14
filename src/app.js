@@ -40,7 +40,7 @@ controls.minDistance = 4;
 controls.maxDistance = 16;
 controls.update();*/
 
-// ME May 11; start state
+// start state
 startGame(scene);
 var last;
 
@@ -83,10 +83,10 @@ const windowResizeHandler = () => {
 windowResizeHandler();
 window.addEventListener("resize", windowResizeHandler, false);
 
-// ME - May 11 edit
+// ME - start game by creating and displaying start menu
 function startGame(scene) {
   if (scene.state.startBegin) {
-    const startMenu = new StartMenu(scene); // ME - May 8 edit
+    const startMenu = new StartMenu(scene);
   }
 }
 
@@ -100,16 +100,22 @@ function takingCareOfKeypress(event) {
     Escape: null,
   };
 
+  // return if pause key is not pressed
   if (!keyMap.hasOwnProperty(event.key)) {
     return;
-  } else {
+  } 
+
+  // if pause key has been pressed, create pause menu
+  else {
     if (event.key == "Escape") {
+      // un-pause
       if (scene.state.pauseMenuCreated) {
         var pauseButton = this.document.getElementById("pauseButton");
         pauseButton.onclick();
         return;
       }
 
+      // otherwise, create and display pause menu
       new PauseMenu(scene);
       scene.state.pauseMenuCreated = true;
     }

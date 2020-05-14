@@ -2,7 +2,7 @@ class PauseMenu {
   constructor(scene) {
     this.name = "pauseMenu";
 
-    // don't bring up menu if lose menu is already there
+    // don't bring up menu if lose/pause/win/start menu is already there
     if (
       scene.state.loseEnd ||
       scene.state.startBegin ||
@@ -13,7 +13,6 @@ class PauseMenu {
     }
 
     // put in pause state
-    //scene.state.pauseMenuCreated = true;
     scene.state.paused = true;
     scene.state.gamePlay = false;
     scene.state.music.pause();
@@ -22,11 +21,10 @@ class PauseMenu {
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
-    //link.href = "/src/components/menus/styles.css";
     link.media = "screen";
     document.head.appendChild(link);
 
-    // hide all other elements in body
+    // decrease opacity of all other elements in body
     var length = document.body.children.length;
     for (let i = 0; i < length; i++) {
       document.body.children[i].style.opacity = 0.5;
@@ -57,14 +55,16 @@ class PauseMenu {
     const button = document.createElement("button");
     button.id = "pauseButton";
     button.onclick = function startPayback() {
+      
       // time at which unpause button is clicked
       scene.state.unpauseTime = new Date().getTime();
 
+      // increase opacity of previously decreased opacity elements
       for (let i = 0; i < length; i++) {
         document.body.children[i].style.opacity = 1;
       }
 
-      // remove start menu children
+      // remove pause menu children
       document.body.removeChild(title);
       document.body.removeChild(names);
       document.body.removeChild(instructions);
@@ -76,10 +76,8 @@ class PauseMenu {
       scene.state.pauseMenuCreated = false;
       scene.state.music.play();
 
-      //setTimeout(() => {
-      //	scene.state.gamePlay = true;
-      //}, 1000); // wait 1000 miliseconds before beginning game
     };
+
     button.className = "pauseButton";
     button.type = "button";
     button.innerText = "|R E S U M E|";

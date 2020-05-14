@@ -4,6 +4,7 @@ class WinMenu {
   constructor(scene) {
     this.name = "winMenu";
 
+    // set appropriate states after win
     scene.state.winMenuCreated = true;
     scene.state.gamePlay = false;
 
@@ -11,15 +12,8 @@ class WinMenu {
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.type = "text/css";
-    //link.href = "/src/components/menus/styles.css";
     link.media = "screen";
     document.head.appendChild(link);
-
-    // hide all other elements in body
-    var length = document.body.children.length;
-    for (let i = 0; i < length; i++) {
-      document.body.children[i].style.opacity = 1;
-    }
 
     // Creation of title
     const title = document.createElement("H1");
@@ -46,25 +40,27 @@ class WinMenu {
     const button = document.createElement("button");
     button.id = "btn";
     button.onclick = function startPayback() {
-      for (let i = 0; i < length; i++) {
-        document.body.children[i].style.opacity = 1;
-      }
 
-      // remove start menu children
+      // remove win menu children
       document.body.removeChild(title);
       document.body.removeChild(names);
       document.body.removeChild(congrats);
       document.body.removeChild(button);
 
+      // add delay before restarting game
       setTimeout(() => {
         scene.state.gamePlay = true;
       }, 1000); // wait 1000 miliseconds before beginning game
 
+      // set appropriate states
       scene.state.winRestart = false;
       scene.state.winMenuCreated = false;
       scene.state.life = 3;
+
+      // take player to song selection menu after button is clicked
       const selectMenu = new SelectMenu(scene);
     };
+
     button.className = "winButton";
     button.type = "button";
     button.innerText = "~Play again~";

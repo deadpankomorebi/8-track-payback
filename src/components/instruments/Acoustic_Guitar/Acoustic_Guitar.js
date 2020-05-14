@@ -14,12 +14,16 @@ class AcousticGuitar extends Group {
 
     var guitar = this;
 
+    // load acoustic guitar gltf model
     loader.load(MODEL, (gltf) => {
       gltf.scene.position.z = 50;
       gltf.scene.rotation.y = Math.PI / 2;
       gltf.scene.scale.multiplyScalar(0.1);
 
+      // add acoustic guitar
       this.add(gltf.scene);
+
+      // associate bounding box and moving state
       guitar.boundingBox = new Box3().setFromObject(gltf.scene);
       guitar.moving = false;
 
@@ -27,20 +31,24 @@ class AcousticGuitar extends Group {
       guitar.parent.addToUpdateList(guitar);
     });
 
+    // set minimum and maximum boundaries
     this.minX = -1.0;
     this.maxX = 1.0;
     this.minY = -1.0;
     this.maxY = 2.7;
   }
 
+  // bring acoustic guitar forward from end of tube using Tween
   moveForward(callback) {
     var currentZ = this.position.z;
 
+    // create Tween to bring acoustic guitar to a position past the camera
     const approach = new TWEEN.Tween(this.position).to(
       { z: this.position.z - 60 },
       4000
     );
 
+    // after Tween is completed, return to initial z position as invisible
     approach.onComplete(() => {
       this.visible = false;
       this.position.z = currentZ;
@@ -51,6 +59,7 @@ class AcousticGuitar extends Group {
     approach.start();
   }
 
+  // update Tween and bounding box position
   update(timeStamp) {
     TWEEN.update();
     this.boundingBox = new Box3().setFromObject(this);
