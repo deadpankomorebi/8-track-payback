@@ -2,7 +2,7 @@
 
 This project will help you get started on your ThreeJS project and provide a strong foundation for extension. It sets up a simple scene, camera, and renderer in a modern JavaScript environment.
 
-[Online Demo](https://reillybova.github.io/three-seed/)
+[Online Demo](https://yz-shi.github.io/8-track-payback/)
 
 ## Installation
 This project uses the GitHub's NodeJS Package Manager (npm) to manage project dependencies. All npm settings, as well as your project dependencies and their versionings, are defined in the file `package.json`.
