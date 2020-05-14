@@ -1,8 +1,5 @@
-//import * as Dat from 'dat.gui';
 import { Scene, Color, TextureLoader, RepeatWrapping } from "three";
 import {
-  Flower,
-  Land,
   RectangularTube,
   Headphones,
   Obstacle,
